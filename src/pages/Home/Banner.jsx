@@ -33,7 +33,7 @@ const Banner = () => {
                 >
                     <SwiperSlide>
                         <div className="hero md:min-h-[750px]" style={{ backgroundImage: `url(${img1})` }}>
-                            <div className="hero-overlay md:h-[750px] bg-opacity-60"></div>
+                            <div className="hero-overlay md:h-[750px] bg-opacity-70"></div>
                             <div className="hero-content text-neutral-content">
                                 <div className="">
                                     <h1 className="mb-5 text-3xl md:text-5xl font-bold">Transforming Lives Through Comprehensive Healthcare</h1>
@@ -47,7 +47,7 @@ const Banner = () => {
                     </SwiperSlide>
                     <SwiperSlide>
                         <div className="hero md:min-h-[750px]" style={{ backgroundImage: `url(${img2})` }}>
-                            <div className="hero-overlay md:h-[750px] bg-opacity-60"></div>
+                            <div className="hero-overlay md:h-[750px] bg-opacity-70"></div>
                             <div className="hero-content text-neutral-content">
                                 <div className="">
                                     <h1 className="mb-5 text-3xl md:text-5xl font-bold">Bringing Hope to Future Generations</h1>
@@ -61,7 +61,7 @@ const Banner = () => {
                     </SwiperSlide>
                     <SwiperSlide>
                         <div className="hero md:min-h-[750px]" style={{ backgroundImage: `url(${img3})` }}>
-                            <div className="hero-overlay md:h-[750px] bg-opacity-60"></div>
+                            <div className="hero-overlay md:h-[750px] bg-opacity-70"></div>
                             <div className="hero-content text-neutral-content">
                                 <div className="">
                                     <h1 className="mb-5 text-3xl md:text-5xl font-bold">Life-changing Surgeries for Those in Need</h1>
@@ -74,7 +74,7 @@ const Banner = () => {
                     </SwiperSlide>
                     <SwiperSlide>
                         <div className="hero md:min-h-[750px]" style={{ backgroundImage: `url(${img4})` }}>
-                            <div className="hero-overlay md:h-[750px] bg-opacity-60"></div>
+                            <div className="hero-overlay md:h-[750px] bg-opacity-70"></div>
                             <div className="hero-content text-neutral-content">
                                 <div className="">
                                     <h1 className="mb-5 text-3xl md:text-5xl font-bold">Stronger Together: Community and Healthcare</h1>
@@ -88,7 +88,7 @@ const Banner = () => {
                     </SwiperSlide>
                     <SwiperSlide>
                         <div className="hero md:min-h-[750px]" style={{ backgroundImage: `url(${img5})` }}>
-                            <div className="hero-overlay md:h-[750px] bg-opacity-60"></div>
+                            <div className="hero-overlay md:h-[750px] bg-opacity-70"></div>
                             <div className="hero-content text-neutral-content">
                                 <div className="">
                                     <h1 className="mb-5 text-3xl md:text-5xl font-bold">Gratitude and New Beginnings</h1>
