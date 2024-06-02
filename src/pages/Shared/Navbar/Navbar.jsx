@@ -4,7 +4,7 @@ const Navbar = () => {
     const user = false;
     const navOptions = <>
         <li><NavLink to="/">Home</NavLink></li>
-        <li><NavLink to="availableCamp">Available Camps</NavLink></li>
+        <li><NavLink to="/availableCamp">Available Camps</NavLink></li>
     </>
     return (
         <div className=" bg-[#6F42C1] z-50">
