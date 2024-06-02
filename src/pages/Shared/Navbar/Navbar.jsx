@@ -1,10 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const Navbar = () => {
     const user = false;
     const navOptions = <>
-        <li><a>Home</a></li>
-        <li><a>Available Camps</a></li>
+        <li><NavLink to="/">Home</NavLink></li>
+        <li><NavLink to="availableCamp">Available Camps</NavLink></li>
     </>
     return (
         <div className=" bg-[#6F42C1]">
