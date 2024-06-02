@@ -7,7 +7,7 @@ const Navbar = () => {
         <li><NavLink to="availableCamp">Available Camps</NavLink></li>
     </>
     return (
-        <div className=" bg-[#6F42C1]">
+        <div className=" bg-[#6F42C1] z-50">
             <div className="drawer container mx-auto text-white sticky top-0">
                 <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
                 <div className="drawer-content flex flex-col">
@@ -40,7 +40,7 @@ const Navbar = () => {
                             </ul>
                         </div>
                         :
-                        <Link to=""><button className="btn btn-outline border hover:bg-[#28A745] border-[#F5F5DC] text-white text-xl font-bold">Join US</button></Link>
+                        <Link to=""><button className="btn btn-outline border hover:bg-[#28A745] border-[#F5F5DC] text-white text-xl font-medium md:font-bold">Join US</button></Link>
                         }
                     </div>
 
@@ -48,7 +48,7 @@ const Navbar = () => {
                 {/* for responsive device */}
                 <div className="drawer-side">
                     <label htmlFor="my-drawer-3" aria-label="close sidebar" className="drawer-overlay"></label>
-                    <ul className="menu font-bold text-2xl w-64 min-h-full bg-[#007BFF]">
+                    <ul className="menu font-bold text-2xl w-64 min-h-full bg-[#6F42C1]">
                         {navOptions}
                     </ul>
                 </div>

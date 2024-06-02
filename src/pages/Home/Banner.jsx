@@ -16,7 +16,7 @@ import img5 from "../../assets/banner/5.jpg"
 const Banner = () => {
 
     return (
-        <div className=' container mx-auto my-4 md:min-h-[700px] bg-cover'>
+        <div className=' container mx-auto z-0 my-4 md:min-h-[700px] bg-cover'>
             <div>
                 <Swiper
                     modules={[Navigation, Pagination, Scrollbar, A11y, EffectFade, Autoplay]}
