@@ -38,7 +38,6 @@ const PopularCamp = () => {
 
                         <div className="flex items-center px-6 py-3 bg-[#6F42C1]">
                             <span className="text-xl text-white font-bold">Fees: </span>
-
                             <h1 className="mx-3 text-lg font-semibold text-white">${camp.campFees}</h1>
                         </div>
 

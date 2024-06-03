@@ -27,7 +27,7 @@ const Navbar = () => {
 
                         {
                             user ? <div className="dropdown dropdown-end " >
-                            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar tooltip" data-tip={user?.displayName || user?.email}>
+                            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar tooltip">
                                 <div className="w-10 rounded-full ">
                                     <img alt="Tailwind CSS Navbar component" src={user?.photoURL || "https://i.ibb.co/ZX6HMzF/pp.jpg"} />
                                 </div>
@@ -40,7 +40,7 @@ const Navbar = () => {
                             </ul>
                         </div>
                         :
-                        <Link to=""><button className="btn btn-outline border hover:bg-[#28A745] border-[#F5F5DC] text-white text-xl font-medium md:font-bold">Join US</button></Link>
+                        <Link to="/join-now"><button className="btn btn-outline border hover:bg-[#28A745] border-[#F5F5DC] text-white text-xl font-medium md:font-bold">Join US</button></Link>
                         }
                     </div>
 
