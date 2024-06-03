@@ -1,15 +1,28 @@
 import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
+import { toast } from "react-toastify";
 
 const Navbar = () => {
-    const { user } = useAuth();
+    const { user, logOut } = useAuth();
     const navOptions = <>
         <li><NavLink to="/">Home</NavLink></li>
         <li><NavLink to="/availableCamp">Available Camps</NavLink></li>
     </>
+
+    const handleLogOut = () => {
+        logOut()
+            .then(result => {
+                toast.success("log out successful")
+                console.log(result.user)
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+
     return (
-        <div className=" bg-[#6F42C1] z-50">
-            <div className="drawer container mx-auto text-white sticky top-0">
+        <div className=" bg-[#6F42C1]">
+            <div className="drawer z-50 container mx-auto text-white sticky top-0">
                 <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
                 <div className="drawer-content flex flex-col">
                     {/* Navbar */}
@@ -29,7 +42,7 @@ const Navbar = () => {
                         {
                             user ? <div className="dropdown dropdown-end " >
                                 <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar tooltip">
-                                    <div className="w-10 rounded-full ">
+                                    <div className="w-10 border-2 border-white rounded-full ">
                                         <img alt="Tailwind CSS Navbar component" src={user?.photoURL || "https://i.ibb.co/ZX6HMzF/pp.jpg"} />
                                     </div>
 
@@ -37,7 +50,7 @@ const Navbar = () => {
                                 <ul tabIndex={0} className="mt-3 z-[10] p-2 shadow menu menu-sm text-white font-bold dropdown-content bg-[#6F42C1] w-32">
                                     <li className="hover:bg-gray-500"><Link to="">User Name</Link></li>
                                     <li className="hover:bg-gray-500"><Link to="">Dashboard</Link></li>
-                                    <li className="hover:bg-gray-500 text-red-500"><Link to="/login"><button disabled>Logout</button></Link></li>
+                                    <li className="hover:bg-gray-500 text-red-500"><Link to="/login"><button onClick={handleLogOut}>Logout</button></Link></li>
                                 </ul>
                             </div>
                                 :
