@@ -5,12 +5,15 @@ import AvailableCamps from "../pages/AvailableCamps/AvailableCamps";
 import CampDetails from "../pages/CampDetails/CampDetails";
 import JoinUs from "../pages/JoinUs/JoinUs";
 import Login from "../pages/Login/Login";
+import PrivateRoute from "./PrivateRoute";
+import ErrorPage from "../pages/ErrorPage/ErrorPage";
 
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <Main></Main>,
+        errorElement: <ErrorPage></ErrorPage>,
         children: [
             {
                 path: "/",
@@ -22,7 +25,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "camps/:id",
-                element: <CampDetails></CampDetails>
+                element: <PrivateRoute><CampDetails></CampDetails></PrivateRoute>
             },
             {
                 path: 'join-now',

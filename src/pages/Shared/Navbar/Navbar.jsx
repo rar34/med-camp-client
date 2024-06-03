@@ -17,12 +17,13 @@ const Navbar = () => {
             })
             .catch(error => {
                 console.log(error)
+                toast.error(error.message)
             })
     }
 
     return (
-        <div className=" bg-[#6F42C1]">
-            <div className="drawer z-50 container mx-auto text-white sticky top-0">
+        <div className=" bg-[#6F42C1]  sticky top-0 z-40">
+            <div className="drawer z-50 container mx-auto text-white">
                 <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
                 <div className="drawer-content flex flex-col">
                     {/* Navbar */}

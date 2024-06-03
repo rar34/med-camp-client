@@ -77,7 +77,7 @@ const PopularCamp = () => {
 
             </div>
             <div className="flex justify-center w-full mb-4 mt-14">
-                <Link className="bg-[#6F42C1] py-3 px-14 rounded-lg hover:bg-slate-600 text-white text-2xl" to="availableCamps">See All Camps</Link>
+                <Link className="bg-[#6F42C1] py-3 px-14 rounded-lg hover:bg-slate-600 text-white text-2xl" to="availableCamp">See All Camps</Link>
             </div>
         </div>
     );

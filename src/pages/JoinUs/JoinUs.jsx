@@ -3,7 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 // import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
-import axios from "axios";
+import { imageUpload } from "../../utils";
+// import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const JoinUs = () => {
     const navigate = useNavigate()
@@ -18,20 +19,15 @@ const JoinUs = () => {
         const image = form.image.files[0];
         const password = form.password.value;
 
-        const formData = new FormData();
-        formData.append('image', image);
-
 
 
         try {
             // save image into imgbb
-            const { data } = await axios.post(`https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_API_KEY}`, formData)
-
-            console.log(data.data.display_url)
+            const image_url = await imageUpload(image)
             // create user
             const result = await createUser(email, password);
             console.log(result)
-            await profileUpdate(name, data.data.display_url)
+            await profileUpdate(name, image_url)
             Swal.fire({
                 title: 'Success',
                 text: 'Sign Up Successfully',
@@ -48,7 +44,11 @@ const JoinUs = () => {
 
     // const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
-    // const onSubmit = (data) => {
+    // const onSubmit = async (data) => {
+    //     const image = data.image
+    //     console.log(data.image[0].name)
+    //     const image = await imageUpload(data.image[0].name)
+    //     console.log(image)
     //     createUser(data.email, data.password)
     //         .then(result => {
     //             const user = result.user;
@@ -63,17 +63,15 @@ const JoinUs = () => {
     //                         .then(res => {
     //                             if (res.data.insertedId) {
     //                                 reset()
-    // Swal.fire({
-    //     title: 'Success',
-    //     text: 'Sign Up Successfully',
-    //     icon: 'success',
-    //     confirmButtonText: 'Ok'
-    // })
-    // navigate("/")
+    //                                 Swal.fire({
+    //                                     title: 'Success',
+    //                                     text: 'Sign Up Successfully',
+    //                                     icon: 'success',
+    //                                     confirmButtonText: 'Ok'
+    //                                 })
+    //                                 navigate("/")
     //                             }
     //                         })
-
-
     //                 })
     //                 .catch(error => {
     //                     console.log(error)
@@ -99,7 +97,7 @@ const JoinUs = () => {
                                 Join Now!
                             </a>
                         </div>
-
+                        {/* user name */}
                         <div className="relative flex items-center mt-8">
                             <span className="absolute">
                                 <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
@@ -107,13 +105,13 @@ const JoinUs = () => {
                                 </svg>
                             </span>
 
-                            <input name="name" type="text" className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Username" required />
+                            <input name="name"  type="text" className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Username" />
+                            
                         </div>
-
+                        {/* profile image  */}
                         <label htmlFor="dropzone-file" className="flex items-center mt-6">
-
-
-                            <input name="image" type="file" className="file-input file-input-bordered file-input-info w-full" required />
+                            <input name="image"  type="file" className="file-input file-input-bordered file-input-info w-full" required />
+                            
                         </label>
 
 
@@ -124,7 +122,8 @@ const JoinUs = () => {
                                 </svg>
                             </span>
 
-                            <input name="email" type="email" className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Email address" required />
+                            <input name="email"  type="email" className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Email address" />
+                            
                         </div>
 
                         <div className="relative flex items-center mt-4">
@@ -135,6 +134,7 @@ const JoinUs = () => {
                             </span>
 
                             <input name="password" type="password" className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Password" required />
+                            
                         </div>
 
                         <div className="mt-6">
