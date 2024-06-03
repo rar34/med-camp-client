@@ -25,7 +25,7 @@ const CampDetails = () => {
     return (
         <div className="w-2/3 my-14 mx-auto">
             <div className="w-full overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
-                <img className="object-cover object-center w-full h-56" src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80" alt="avatar" />
+                <img className="object-cover object-center w-full h-[700px]" src={image} alt="avatar" />
 
                 <div className="flex items-center px-6 py-3 bg-[#6F42C1]">
                     <span className="text-xl text-white font-bold">Fees: </span>
