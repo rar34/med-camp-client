@@ -1,10 +1,51 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
+import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 const Login = () => {
+    const { signIn, googleSignIn, user, loading } = useAuth();
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm()
+    const onSubmit = (data) => {
+        const { email, password } = data;
+        // console.log(email, password)
+
+        signIn(email, password)
+            .then(() => {
+                toast("login successful")
+                navigate(location?.state || "/")
+            })
+            .catch(() => {
+                return toast("invalid-credential")
+            })
+    }
+
+    const handleGoogleLogin = () => {
+        googleSignIn()
+            .then((result) => {
+                if (result.user) {
+                    toast.success("login successful")
+                    navigate(location?.state || "/")
+                }
+            })
+            .catch(() => {
+                toast.error("invalid-credential")
+            })
+    }
+
+    if (user || loading) { return }
+
     return (
         <section className="bg-[#F5F5DC]">
             <div className="container flex items-center justify-center py-14 px-6 mx-auto">
-                <form className="w-full border-2 border-[#6F42C1] p-10 rounded-xl shadow-xl max-w-md">
+                <form onSubmit={handleSubmit(onSubmit)} className="w-full border-2 border-[#6F42C1] p-10 rounded-xl shadow-xl max-w-md">
                     <img className="w-auto mx-auto h-7 sm:h-8" src="https://merakiui.com/images/logo.svg" alt="" />
                     <h1 className="mt-3 text-2xl text-center font-semibold text-gray-800 capitalize sm:text-3xl dark:text-white">sign In</h1>
 
@@ -15,7 +56,8 @@ const Login = () => {
                             </svg>
                         </span>
 
-                        <input name="email" type="email" className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Email address" />
+                        <input name="email" type="email" {...register("email", { required: true })} className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Email address" />
+                        {errors.email && <span className="text-red-600">This field is required</span>}
                     </div>
 
                     <div className="relative flex items-center mt-4">
@@ -25,7 +67,8 @@ const Login = () => {
                             </svg>
                         </span>
 
-                        <input name="password" type="password" className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Password" />
+                        <input name="password" {...register("password", { required: true })} type="password" className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Password" />
+                        {errors.password && <span className="text-red-600">This field is required</span>}
                     </div>
 
                     <div className="mt-6">
@@ -43,7 +86,7 @@ const Login = () => {
                                 <path d="M36.3425 16.7358H35V16.6667H20V23.3333H29.4192C28.7592 25.1975 27.56 26.805 26.0133 27.9758C26.0142 27.975 26.015 27.975 26.0158 27.9742L31.1742 32.3392C30.8092 32.6708 36.6667 28.3333 36.6667 20C36.6667 18.8825 36.5517 17.7917 36.3425 16.7358Z" fill="#1976D2" />
                             </svg>
 
-                            <button className="mx-2">Sign in with Google</button>
+                            <button onClick={handleGoogleLogin} className="mx-2">Sign in with Google</button>
                         </a>
 
                         <div className="mt-6 text-center ">
