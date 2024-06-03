@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 // import useAxiosPublic from "../../hooks/useAxiosPublic";
 import useAuth from "../../hooks/useAuth";
 // import { useForm } from "react-hook-form";
@@ -143,9 +143,9 @@ const JoinUs = () => {
                             </button>
 
                             <div className="mt-6 text-center ">
-                                <a href="#" className="text-sm text-blue-500 hover:underline dark:text-blue-400">
+                                <Link to="/login" className="text-sm text-blue-500 hover:underline dark:text-blue-400">
                                     Already have an account?
-                                </a>
+                                </Link>
                             </div>
                         </div>
                     </form>
