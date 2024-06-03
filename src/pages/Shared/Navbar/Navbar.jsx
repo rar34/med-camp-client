@@ -1,7 +1,8 @@
 import { Link, NavLink } from "react-router-dom";
+import useAuth from "../../../hooks/useAuth";
 
 const Navbar = () => {
-    const user = false;
+    const { user } = useAuth();
     const navOptions = <>
         <li><NavLink to="/">Home</NavLink></li>
         <li><NavLink to="/availableCamp">Available Camps</NavLink></li>
@@ -27,20 +28,20 @@ const Navbar = () => {
 
                         {
                             user ? <div className="dropdown dropdown-end " >
-                            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar tooltip">
-                                <div className="w-10 rounded-full ">
-                                    <img alt="Tailwind CSS Navbar component" src={user?.photoURL || "https://i.ibb.co/ZX6HMzF/pp.jpg"} />
-                                </div>
+                                <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar tooltip">
+                                    <div className="w-10 rounded-full ">
+                                        <img alt="Tailwind CSS Navbar component" src={user?.photoURL || "https://i.ibb.co/ZX6HMzF/pp.jpg"} />
+                                    </div>
 
+                                </div>
+                                <ul tabIndex={0} className="mt-3 z-[10] p-2 shadow menu menu-sm text-white font-bold dropdown-content bg-[#6F42C1] w-32">
+                                    <li className="hover:bg-gray-500"><Link to="">User Name</Link></li>
+                                    <li className="hover:bg-gray-500"><Link to="">Dashboard</Link></li>
+                                    <li className="hover:bg-gray-500 text-red-500"><Link to="/login"><button disabled>Logout</button></Link></li>
+                                </ul>
                             </div>
-                            <ul tabIndex={0} className="mt-3 z-[10] p-2 shadow menu menu-sm text-white font-bold dropdown-content bg-[#6F42C1] w-32">
-                                <li className="hover:bg-gray-500"><Link to="">User Name</Link></li>
-                                <li className="hover:bg-gray-500"><Link to="">Dashboard</Link></li>
-                                <li className="hover:bg-gray-500 text-red-500"><Link to="/login"><button disabled>Logout</button></Link></li>
-                            </ul>
-                        </div>
-                        :
-                        <Link to="/join-now"><button className="btn btn-outline border hover:bg-[#28A745] border-[#F5F5DC] text-white text-xl font-medium md:font-bold">Join US</button></Link>
+                                :
+                                <Link to="/join-now"><button className="btn btn-outline border hover:bg-[#28A745] border-[#F5F5DC] text-white text-xl font-medium md:font-bold">Join US</button></Link>
                         }
                     </div>
 
