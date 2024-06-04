@@ -1,7 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import { Link } from "react-router-dom";
-import { IoPeople } from "react-icons/io5";
 import { FaLocationDot, FaUserDoctor } from "react-icons/fa6";
 import { MdDateRange } from "react-icons/md";
 import { IoMdTimer } from "react-icons/io";
@@ -30,10 +29,15 @@ const AvailableCamps = () => {
                     camps?.map(camp => <div key={camp._id} className="w-full overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
                         <img className="object-cover object-center w-full h-72" src={camp.image} alt="avatar" />
 
-                        <div className="flex items-center px-6 py-3 bg-[#6F42C1]">
-                            <span className="text-xl text-white font-bold">Fees: </span>
-
-                            <h1 className="mx-3 text-lg font-semibold text-white">${camp.campFees}</h1>
+                        <div className="flex items-center justify-between px-6 py-3 bg-[#6F42C1]">
+                            <div className="flex">
+                                <span className="text-xl text-white font-bold">Fees: </span>
+                                <h1 className="mx-3 text-lg font-semibold text-white">${camp.campFees}</h1>
+                            </div>
+                            <div className="flex">
+                                <span className="text-xl text-white font-bold">Participant: </span>
+                                <h1 className="mx-3 text-lg font-semibold text-white">{camp.participantCount}</h1>
+                            </div>
                         </div>
 
                         <div className="px-6 py-4">
@@ -50,18 +54,13 @@ const AvailableCamps = () => {
                             <div className="flex items-center mt-4 text-gray-700 dark:text-gray-200">
                                 <FaUserDoctor className=" text-xl" />
 
-                                <h1 className="px-2 text-sm">{camp.healthcareProfessional}</h1>
+                                <h1 className="px-2 text-sm"><span className="font-bold">Healthcare Professional:</span> {camp.healthcareProfessional}</h1>
                             </div>
 
                             <div className="flex items-center mt-4 text-gray-700 dark:text-gray-200">
                                 <FaLocationDot className="text-xl" />
 
                                 <h1 className="px-2 text-sm">{camp.location}</h1>
-                            </div>
-
-                            <div className="flex items-center mt-4 text-gray-700 dark:text-gray-200">
-                                <IoPeople className="text-xl" />
-                                <h1 className="px-2 text-sm">Total participant: {camp.participantCount}</h1>
                             </div>
                             <div className="flex mt-3 justify-end">
                                 <Link className="bg-[#6F42C1] py-2 px-6 rounded-lg hover:bg-slate-600 text-white" to={`/camps/${camp._id}`}>See Details</Link>
