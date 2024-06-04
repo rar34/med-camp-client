@@ -7,6 +7,8 @@ import JoinUs from "../pages/JoinUs/JoinUs";
 import Login from "../pages/Login/Login";
 import PrivateRoute from "./PrivateRoute";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
+import Dashboard from "../Layout/Dashboard";
+import OrganizerProfile from "../pages/Dashboard/OrganizerProfile/OrganizerProfile";
 
 
 const router = createBrowserRouter([
@@ -37,6 +39,16 @@ const router = createBrowserRouter([
             }
         ]
     },
+    {
+        path: 'dashboard',
+        element: <Dashboard></Dashboard>,
+        children: [
+            {
+                path:'organizer-profile',
+                element: <OrganizerProfile></OrganizerProfile>
+            }
+        ]
+    }
 ]);
 
 export default router;
