@@ -10,37 +10,6 @@ const JoinUs = () => {
     const axiosPublic = useAxiosPublic();
     const { createUser, profileUpdate } = useAuth();
 
-    // const handleSubmit = async e => {
-    //     e.preventDefault();
-    //     const form = e.target;
-    //     const name = form.name.value;
-    //     const email = form.email.value;
-    //     const image = form.image.files[0];
-    //     const password = form.password.value;
-
-
-
-    //     try {
-    //         // save image into imgbb
-    //         const image_url = await imageUpload(image)
-    //         // create user
-    //         const result = await createUser(email, password);
-    //         console.log(result)
-    //         await profileUpdate(name, image_url)
-    //         Swal.fire({
-    //             title: 'Success',
-    //             text: 'Sign Up Successfully',
-    //             icon: 'success',
-    //             confirmButtonText: 'Ok'
-    //         })
-    //         navigate("/")
-
-    //     }
-    //     catch (err) {
-    //         console.log(err)
-    //     }
-    // }
-
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
     const onSubmit = async (data) => {

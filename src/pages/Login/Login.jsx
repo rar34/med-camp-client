@@ -2,9 +2,11 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const Login = () => {
     const { signIn, googleSignIn, user, loading } = useAuth();
+    const axiosPublic = useAxiosPublic()
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -30,10 +32,20 @@ const Login = () => {
     const handleGoogleLogin = () => {
         googleSignIn()
             .then((result) => {
-                if (result.user) {
-                    toast.success("login successful")
-                    navigate(location?.state || "/")
+                console.log(result.user)
+                const userInfo = {
+                    name: result.user?.displayName,
+                    email: result.user?.email,
+                    image: result.user?.photoURL
                 }
+                axiosPublic.post('users', userInfo)
+                    .then(res => {
+                        console.log(res.data)
+                        if (res.data) {
+                            toast.success("login successful")
+                            navigate(location?.state || "/")
+                        }
+                    })
             })
             .catch(() => {
                 toast.error("invalid-credential")
