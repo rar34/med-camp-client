@@ -72,14 +72,14 @@ const JoinUs = () => {
                                 </svg>
                             </span>
 
-                            <input name="name" {...register("name", { required: true })} type="text" className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Username" />
-                            {errors.name && <span className="text-red-600">Name is required</span>}
+                            <input name="name" {...register("name", { required: true })} type="text" className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Username" required/>
                         </div>
+                            {errors.name && <span className="text-red-600">Name is required</span>}
                         {/* profile image  */}
                         <label htmlFor="dropzone-file" className="flex items-center mt-6">
                             <input name="image" {...register("image", { required: true })} type="file" className="file-input file-input-bordered file-input-info w-full" required />
-                            {errors.image && <span className="text-red-600">Image is required</span>}
                         </label>
+                            {errors.image && <span className="text-red-600">Image is required</span>}
 
 
                         <div className="relative flex items-center mt-6">
@@ -89,9 +89,9 @@ const JoinUs = () => {
                                 </svg>
                             </span>
 
-                            <input name="email" {...register("email", { required: true })} type="email" className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Email address" />
-                            {errors.email && <span className="text-red-600">Email is required</span>}
+                            <input name="email" {...register("email", { required: true })} type="email" className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Email address" required/>
                         </div>
+                            {errors.email && <span className="text-red-600">Email is required</span>}
 
                         <div className="relative flex items-center mt-4">
                             <span className="absolute">
@@ -101,10 +101,10 @@ const JoinUs = () => {
                             </span>
 
                             <input name="password" {...register("password", { required: true, minLength: 6, pattern: /(?=.*[A-Z])(?=.*[a-z])(?=.*[^a-zA-Z0-9]).{8,}$/ })} type="password" className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Password" required />
+                        </div>
                             {errors.password?.type === 'required' && <span className="text-red-600">Password is required</span>}
                             {errors.password?.type === 'minLength' && <span className="text-red-600">Password should be minimum 6 character long</span>}
                             {errors.password?.type === 'pattern' && <span className="text-red-600">Password should be minimum one special character</span>}
-                        </div>
 
                         <div className="mt-6">
                             <button className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-[#6F42C1] rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
