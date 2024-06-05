@@ -24,7 +24,7 @@ const JoinUs = () => {
                         const userInfo = {
                             name: data.name,
                             email: data.email,
-                            image: image
+                            image: image,
                         }
                         axiosPublic.post('/users', userInfo)
                             .then(res => {
@@ -56,7 +56,7 @@ const JoinUs = () => {
                 <div className="container flex items-center justify-center py-20 px-6 mx-auto">
                     <form onSubmit={handleSubmit(onSubmit)} className="w-full border-2 border-[#6F42C1] p-10 rounded-xl shadow-xl max-w-md">
                         <div className="flex justify-center mx-auto">
-                            <img className="w-auto h-7 sm:h-8" src="https://merakiui.com/images/logo.svg" alt="" />
+                            <img className="w-auto h-7 sm:h-8" src="https://i.ibb.co/tsknk7d/icon.png" alt="" />
                         </div>
 
                         <div className="flex items-center justify-center mt-6">

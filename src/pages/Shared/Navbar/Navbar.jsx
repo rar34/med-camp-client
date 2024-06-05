@@ -48,8 +48,9 @@ const Navbar = () => {
                                     </div>
 
                                 </div>
-                                <ul tabIndex={0} className="mt-3 z-[10] p-2 shadow menu menu-sm text-white font-bold dropdown-content bg-[#6F42C1] w-32">
-                                    <li><button disabled>User Name</button></li>
+                                <ul tabIndex={0} className="mt-3 z-[10] p-2 shadow menu menu-sm text-white font-bold dropdown-content bg-[#6F42C1] w-36">
+                                    <li><button className=" border" disabled>Name: {user?.displayName}</button></li>
+                                    
                                     <li className="hover:bg-gray-500"><Link to="/dashboard/organizer-profile">Dashboard</Link></li>
                                     <li className="hover:bg-gray-500 text-red-500"><Link to="/login"><button onClick={handleLogOut}>Logout</button></Link></li>
                                 </ul>
