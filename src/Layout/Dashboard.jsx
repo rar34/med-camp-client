@@ -20,21 +20,21 @@ const Dashboard = () => {
         {
             isAdmin ? <>
                 <li><NavLink
-                    style={({ isActive }) => { return isActive ? { borderBottomColor: "skyblue", backgroundColor: 'transparent ' } : {}; }} className={'border-b-2 mb-4'}
+                    style={({ isActive }) => { return isActive ? { borderBottomColor: "yellow", backgroundColor: 'transparent ' } : {}; }} className={'border-b-2 mb-4'}
                     to="/dashboard/organizer-profile"><FaUser /> Organizer Profile</NavLink></li>
                 <li><NavLink
-                    style={({ isActive }) => { return isActive ? { borderBottomColor: "skyblue", backgroundColor: 'transparent ' } : {}; }} className={'border-b-2 mb-4'}
+                    style={({ isActive }) => { return isActive ? { borderBottomColor: "yellow", backgroundColor: 'transparent ' } : {}; }} className={'border-b-2 mb-4'}
                     to="/add-camp"><FaCalendarPlus /> Add A Camp</NavLink></li>
                 <li><NavLink
-                    style={({ isActive }) => { return isActive ? { borderBottomColor: "skyblue", backgroundColor: 'transparent ' } : {}; }} className={'border-b-2 mb-4'}
+                    style={({ isActive }) => { return isActive ? { borderBottomColor: "yellow", backgroundColor: 'transparent ' } : {}; }} className={'border-b-2 mb-4'}
                     to="/manage-camp"><FaListAlt /> Manage Camps</NavLink></li>
                 <li><NavLink
-                    style={({ isActive }) => { return isActive ? { borderBottomColor: "skyblue", backgroundColor: 'transparent ' } : {}; }} className={'border-b-2 mb-4'}
+                    style={({ isActive }) => { return isActive ? { borderBottomColor: "yellow", backgroundColor: 'transparent ' } : {}; }} className={'border-b-2 mb-4'}
                     to="/manage-reg-camp"><FaListCheck /> Manage Registered Camps</NavLink></li>
 
                 <div className="divider"></div>
                 <li><NavLink
-                    style={({ isActive }) => { return isActive ? { borderBottomColor: "skyblue", backgroundColor: 'transparent ' } : {}; }} className={'border-b-2 mb-4'}
+                    style={({ isActive }) => { return isActive ? { borderBottomColor: "yellow", backgroundColor: 'transparent ' } : {}; }} className={'border-b-2 mb-4'}
                     to="/"><FaHome /> Home</NavLink></li>
             </>
                 :

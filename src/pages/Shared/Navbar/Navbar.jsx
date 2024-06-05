@@ -5,8 +5,8 @@ import { toast } from "react-toastify";
 const Navbar = () => {
     const { user, logOut } = useAuth();
     const navOptions = <>
-        <li><NavLink to="/">Home</NavLink></li>
-        <li><NavLink to="/availableCamp">Available Camps</NavLink></li>
+        <li><NavLink style={({ isActive }) => { return isActive ? { backgroundColor: '#B0B0B0' } : {}; }} to="/">Home</NavLink></li>
+        <li><NavLink style={({ isActive }) => { return isActive ? { backgroundColor: '#B0B0B0' } : {}; }} to="/availableCamp">Available Camps</NavLink></li>
     </>
 
     const handleLogOut = () => {
