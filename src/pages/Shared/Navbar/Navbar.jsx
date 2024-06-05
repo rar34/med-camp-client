@@ -5,8 +5,8 @@ import { toast } from "react-toastify";
 const Navbar = () => {
     const { user, logOut } = useAuth();
     const navOptions = <>
-        <li><NavLink style={({ isActive }) => { return isActive ? { backgroundColor: '#B0B0B0' } : {}; }} to="/">Home</NavLink></li>
-        <li><NavLink style={({ isActive }) => { return isActive ? { backgroundColor: '#B0B0B0' } : {}; }} to="/availableCamp">Available Camps</NavLink></li>
+        <li><NavLink style={({ isActive }) => { return isActive ? { backgroundColor: '#F7931D' } : {}; }} to="/">Home</NavLink></li>
+        <li><NavLink style={({ isActive }) => { return isActive ? { backgroundColor: '#F7931D' } : {}; }} to="/availableCamp">Available Camps</NavLink></li>
     </>
 
     const handleLogOut = () => {
@@ -33,7 +33,7 @@ const Navbar = () => {
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-6 h-6 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
                             </label>
                         </div>
-                        <div className="flex-1 text-xl font-bold"><img className='w-10' src="" alt="" /><span className='text-xl md:text-3xl -ml-10'>MedCampOrganizer</span></div>
+                        <div className="flex-1 text-xl font-bold"><img className='w-52' src="https://i.ibb.co/VSQ9z2M/medcam.png" alt="" /></div>
                         <div className="flex-none font-bold hidden lg:block">
                             <ul className="menu text-xl menu-horizontal">
                                 {navOptions}
