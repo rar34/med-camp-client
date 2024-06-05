@@ -33,7 +33,7 @@ const Navbar = () => {
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-6 h-6 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
                             </label>
                         </div>
-                        <div className="flex-1 text-xl font-bold"><img className='w-52' src="https://i.ibb.co/VSQ9z2M/medcam.png" alt="" /></div>
+                        <div className="flex-1 text-xl font-bold"><Link to="/"><img className='w-52' src="https://i.ibb.co/VSQ9z2M/medcam.png" alt="" /></Link></div>
                         <div className="flex-none font-bold hidden lg:block">
                             <ul className="menu text-xl menu-horizontal">
                                 {navOptions}
