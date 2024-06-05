@@ -3,11 +3,12 @@ import useAuth from "../hooks/useAuth";
 import { FaCalendarPlus, FaListCheck, FaUser } from "react-icons/fa6";
 import { FaHome, FaListAlt, FaMoneyCheckAlt } from "react-icons/fa";
 import { MdAnalytics } from "react-icons/md";
+import useAdmin from "../hooks/useAdmin";
 
 const Dashboard = () => {
     const { user } = useAuth();
-    const isAdmin = true;
-    console.log(user)
+    const [isAdmin] = useAdmin();
+    // console.log(user)
     const navOptions = <>
         <div className="avatar mx-auto">
             <div className="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
@@ -41,7 +42,7 @@ const Dashboard = () => {
                 <>
                     <li><NavLink
                         style={({ isActive }) => { return isActive ? { borderBottomColor: "skyblue", backgroundColor: 'transparent ' } : {}; }} className={'border-b-2 mb-4'}
-                        to="/dashboard/organizer-profile"><MdAnalytics /> Analytics</NavLink></li>
+                        to="/dashboard/analytics"><MdAnalytics /> Analytics</NavLink></li>
                     <li><NavLink
                         style={({ isActive }) => { return isActive ? { borderBottomColor: "skyblue", backgroundColor: 'transparent ' } : {}; }} className={'border-b-2 mb-4'}
                         to="/add-camp"><FaUser />  Participant Profile</NavLink></li>

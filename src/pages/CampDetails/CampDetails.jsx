@@ -9,7 +9,7 @@ import { IoMdTimer } from "react-icons/io";
 const CampDetails = () => {
     const { id } = useParams();
     const axiosPublic = useAxiosPublic();
-    console.log(id)
+    // console.log(id)
 
     const { data: singleCamp = {} } = useQuery({
         queryKey: ['camps', id],
