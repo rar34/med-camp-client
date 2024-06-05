@@ -18,7 +18,7 @@ const CampDetails = () => {
             return res.data;
         }
     })
-    console.log(singleCamp)
+    // console.log(singleCamp)
 
     const {  campName, image, campFees, date, time, location, healthcareProfessional, participantCount, description } = singleCamp;
 

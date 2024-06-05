@@ -16,7 +16,7 @@ const AvailableCamps = () => {
         }
     })
 
-    console.log(camps)
+    // console.log(camps)
 
     return (
         <div className="pt-28 bg-[#F5F5DC] py-10">
