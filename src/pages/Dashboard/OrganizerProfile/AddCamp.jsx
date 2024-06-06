@@ -1,46 +1,55 @@
 import { useForm } from "react-hook-form";
-import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
-import { FaUtensils } from "react-icons/fa6";
+import { imageUpload } from "../../../utils";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { useState } from "react";
+import TimePicker from 'react-time-picker';
+
+import 'react-time-picker/dist/TimePicker.css';
+import 'react-clock/dist/Clock.css';
+
 
 const AddCamp = () => {
-
-    const axiosPublic = useAxiosPublic();
+    const [startDate, setStartDate] = useState(new Date());
+    const [value, onChange] = useState('10:00');
     const axiosSecure = useAxiosSecure()
     const { register, handleSubmit, reset } = useForm()
     const onSubmit = async (data) => {
-        console.log(data)
-        const imageFile = { image: data.image[0] }
-        const res = await axiosPublic.post("", imageFile, {
-            headers: {
-                'content-type': 'multipart/form-data'
-            }
-        })
-        console.log(res.data)
-        if (res.data.success) {
-            // send the data to the server with image
-            const menuItem = {
-                name: data.name,
-                category: data.category,
-                price: parseFloat(data.price),
-                recipe: data.recipe,
-                image: res.data.data.display_url
-            }
-            const menuRes = await axiosSecure.post("/menu", menuItem)
-            console.log(menuRes.data)
-            if (menuRes.data.insertedId) {
-                reset();
-                //show success popup
-                Swal.fire({
-                    position: "top-end",
-                    icon: "success",
-                    title: "Your item has been added",
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-            }
+        const image = await imageUpload(data.image[0])
+        const date = startDate?.toLocaleDateString().split('T')[0];
+        const time = startDate?.toLocaleTimeString().split(' ')[0];
+        console.log(image, date, time)
+        
+        const campItem = {
+            campName: data.name,
+            image: image,
+            campFees: parseFloat(data.fees),
+            date: date,
+            time: value,
+            location: data.location,
+            healthcareProfessional: data.healthcareProfessional,
+            participantCount: 0,
+            description: data.description
         }
+
+        // console.log(campItem)
+        
+        const campRes = await axiosSecure.post("/camps", campItem)
+        console.log(campRes.data)
+        if (campRes.data.insertedId) {
+            reset();
+            //show success popup
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "New Camp has been added",
+                showConfirmButton: false,
+                timer: 1500
+            });
+        }
+        // }
     }
 
     return (
@@ -49,19 +58,37 @@ const AddCamp = () => {
                 <h2 className="text-3xl text-center font-bold">Add Camp</h2>
                 <div className="divider"></div>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <div className="form-control w-full">
+                    {/* <div className="form-control w-full">
                         <label className="label">
                             <span className="label-text">Camp Name*</span>
                         </label>
                         <input type="text" placeholder="Camp Name" className="input input-bordered w-full" {...register("name", { required: true })} required />
-                    </div>
+                    </div> */}
                     <div className="flex items-center gap-6">
-                        {/* Healthcare professional name */}
+                        {/* Camp Name name */}
                         <div className="form-control w-full">
                             <label className="label">
-                                <span className="label-text">Healthcare Professional: </span>
+                                <span className="label-text">Camp Name: </span>
                             </label>
-                            <input type="text" placeholder="Healthcare Professional" className="input input-bordered w-full " {...register("fees", { required: true })} />
+                            <input type="text" placeholder="Camp Name" className="input input-bordered w-full " {...register("name", { required: true })} />
+                        </div>
+                        {/* Camp fees */}
+                        <div className="form-control w-full">
+                            <label className="label">
+                                <span className="label-text">Healthcare Professional*</span>
+                            </label>
+                            <input type="text" placeholder="Healthcare Professional" className="input input-bordered w-full" {...register("healthcareProfessional", { required: true })} required />
+                        </div>
+                    </div>
+
+
+                    <div className="flex items-center gap-6">
+                        {/* Location */}
+                        <div className="form-control w-full">
+                            <label className="label">
+                                <span className="label-text">Location: </span>
+                            </label>
+                            <input type="text" placeholder="Location" className="input input-bordered w-full " {...register("location", { required: true })} />
                         </div>
                         {/* Camp fees */}
                         <div className="form-control w-full">
@@ -75,27 +102,31 @@ const AddCamp = () => {
                         {/* Location */}
                         <div className="form-control w-full">
                             <label className="label">
-                                <span className="label-text">Location: </span>
+                                <span className="label-text">Date: </span>
                             </label>
-                            <input type="text" placeholder="Location" className="input input-bordered w-full " {...register("fees", { required: true })} />
+                            <DatePicker className="p-3 border rounded-lg w-full" selected={startDate} onChange={(date) => setStartDate(date)} />
+                            {/* <TimePicker className="p-3 border rounded-lg w-full bg-white" onChange={onChange} value={value} /> */}
+                            {/* <input type="date" placeholder="Camp fees" className="input input-bordered w-full " {...register("fees", { required: true })} /> */}
                         </div>
                         {/* Date and time */}
                         <div className="form-control w-full">
                             <label className="label">
-                                <span className="label-text">Date and Time: </span>
+                                <span className="label-text">Time: </span>
                             </label>
-                            <input type="date" placeholder="Camp fees" className="input input-bordered w-full " {...register("fees", { required: true })} />
+                            {/* <DatePicker className="p-3 border rounded-lg w-full" selected={startDate} onChange={(date) => setStartDate(date)} /> */}
+                            <TimePicker className="p-3 border rounded-lg w-full bg-white" onChange={onChange} value={value} />
+                            {/* <input type="date" placeholder="Camp fees" className="input input-bordered w-full " {...register("fees", { required: true })} /> */}
                         </div>
                     </div>
                     <div className="form-control">
                         <label className="label">
                             <span className="label-text">Description</span>
                         </label>
-                        <textarea {...register('recipe')} className="textarea textarea-bordered h-24" placeholder="Description"></textarea>
+                        <textarea {...register('description')} className="textarea textarea-bordered h-24" placeholder="Description"></textarea>
                     </div>
+                    {/* image upload */}
                     <input {...register('image', { required: true })} type="file" className="file-input file-input-bordered file-input-info w-full mt-6" />
-                    {/* <input className="btn btn-primary mt-6 w-full" type="submit" value="Add Items" /> */}
-                    <button className="btn bg-[#6F42C1] text-white mt-6">Add Item <FaUtensils></FaUtensils></button>
+                    <button className="btn bg-[#6F42C1] text-white mt-6">Add Item</button>
                 </form>
             </div>
         </div>

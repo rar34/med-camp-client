@@ -48,7 +48,7 @@ const AvailableCamps = () => {
                             <hr className="my-4" />
                             <h1 className="text-xl font-semibold text-gray-800 dark:text-white">{camp.campName}</h1>
 
-                            <p className="py-2 text-gray-700 dark:text-gray-400">{camp.description}</p>
+                            <p className="py-2 text-gray-700 dark:text-gray-400">{camp.description.slice(0,120)+'....'}</p>
 
 
                             <div className="flex items-center mt-4 text-gray-700 dark:text-gray-200">
