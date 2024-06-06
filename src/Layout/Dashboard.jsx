@@ -28,7 +28,7 @@ const Dashboard = () => {
                     to="/dashboard/add-camp"><FaCalendarPlus /> Add A Camp</NavLink></li>
                 <li><NavLink
                     style={({ isActive }) => { return isActive ? { borderBottomColor: "yellow", backgroundColor: 'transparent ' } : {}; }} className={'border-b-2 mb-4 shadow-md'}
-                    to="/manage-camp"><FaListAlt /> Manage Camps</NavLink></li>
+                    to="/dashboard/manage-camps"><FaListAlt /> Manage Camps</NavLink></li>
                 <li><NavLink
                     style={({ isActive }) => { return isActive ? { borderBottomColor: "yellow", backgroundColor: 'transparent ' } : {}; }} className={'border-b-2 mb-4 shadow-md'}
                     to="/manage-reg-camp"><FaListCheck /> Manage Registered Camps</NavLink></li>
