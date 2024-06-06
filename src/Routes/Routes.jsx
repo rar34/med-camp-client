@@ -12,6 +12,7 @@ import OrganizerProfile from "../pages/Dashboard/OrganizerProfile/OrganizerProfi
 import AddCamp from "../pages/Dashboard/OrganizerProfile/AddCamp";
 import AdminRoute from "./AdminRoute";
 import ManageCamps from "../pages/Dashboard/OrganizerProfile/ManageCamps";
+import UpdateCamp from "../pages/Dashboard/OrganizerProfile/UpdateCamp";
 
 
 const router = createBrowserRouter([
@@ -57,6 +58,10 @@ const router = createBrowserRouter([
             {
                 path: 'manage-camps',
                 element: <AdminRoute><ManageCamps /></AdminRoute>
+            },
+            {
+                path: 'update-camp/:campId',
+                element: <AdminRoute><UpdateCamp /></AdminRoute>
             }
         ]
     }

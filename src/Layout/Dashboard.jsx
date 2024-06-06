@@ -10,8 +10,8 @@ const Dashboard = () => {
     const [isAdmin] = useAdmin();
     // console.log(user)
     const navOptions = <>
-        <div className="avatar mx-auto">
-            <div className="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+        <div className="avatar online mx-auto">
+            <div className="w-24 rounded-full border-2 ring-offset-base-100 ring-offset-2">
                 <img src={user?.photoURL} />
             </div>
         </div>
@@ -92,7 +92,7 @@ const Dashboard = () => {
                 </div>
             </div>
             {/* dashboard content */}
-            <div className="flex-1 p-8">
+            <div className="flex-1 p-2 md:p-8 overflow-x-auto">
                 <Outlet></Outlet>
             </div>
         </div>

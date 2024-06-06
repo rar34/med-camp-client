@@ -3,6 +3,7 @@ import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { Link } from "react-router-dom";
 
 const ManageCamps = () => {
 
@@ -73,7 +74,7 @@ const ManageCamps = () => {
                                 <td>{camp.date}</td>
                                 <td>{camp.time}</td>
                                 <td>{camp.location}</td>
-                                <td><button className="text-green-600 text-xl"><FaEdit></FaEdit></button></td>
+                                <td><Link to={`/dashboard/update-camp/${camp._id}`}><button className="text-green-600 text-xl"><FaEdit></FaEdit></button></Link></td>
                                 <td><button onClick={() => handleDeleteItem(camp)} className="text-red-600 text-xl"><FaTrashAlt></FaTrashAlt></button></td>
                             </tr>)
                         }
