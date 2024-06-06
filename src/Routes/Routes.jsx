@@ -9,6 +9,7 @@ import PrivateRoute from "./PrivateRoute";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import Dashboard from "../Layout/Dashboard";
 import OrganizerProfile from "../pages/Dashboard/OrganizerProfile/OrganizerProfile";
+import AddCamp from "../pages/Dashboard/OrganizerProfile/AddCamp";
 
 
 const router = createBrowserRouter([
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
             {
                 path:'organizer-profile',
                 element: <OrganizerProfile></OrganizerProfile>
+            },
+            {
+                path: 'add-camp',
+                element:<AddCamp></AddCamp>
             }
         ]
     }
