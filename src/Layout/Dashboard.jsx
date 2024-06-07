@@ -12,7 +12,7 @@ const Dashboard = () => {
     const { user, logOut } = useAuth();
     const [isAdmin] = useAdmin();
     const axiosPublic = useAxiosPublic();
-    console.log(user)
+    // console.log(user)
     const { data: users = [] } = useQuery({
         queryKey: ['users', user?.email],
         queryFn: async () => {
