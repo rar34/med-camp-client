@@ -5,8 +5,10 @@ import { IoPeople } from "react-icons/io5";
 import { FaLocationDot, FaUserDoctor } from "react-icons/fa6";
 import { MdDateRange } from "react-icons/md";
 import { IoMdTimer } from "react-icons/io";
+import useAuth from "../../hooks/useAuth";
 
 const CampDetails = () => {
+    const { user } = useAuth();
     const { id } = useParams();
     const axiosPublic = useAxiosPublic();
     // console.log(id)
@@ -20,7 +22,11 @@ const CampDetails = () => {
     })
     // console.log(singleCamp)
 
-    const {  campName, image, campFees, date, time, location, healthcareProfessional, participantCount, description } = singleCamp;
+    const { campName, image, campFees, date, time, location, healthcareProfessional, participantCount, description } = singleCamp;
+
+    const handleJobSubmit = () => {
+        console.log('participated')
+    }
 
     return (
         <div className="w-2/3 my-14 mx-auto">
@@ -51,7 +57,7 @@ const CampDetails = () => {
                     </div>
 
                     <div className="flex items-center mt-4 text-gray-700 dark:text-gray-200">
-                    <FaLocationDot className="text-xl" />
+                        <FaLocationDot className="text-xl" />
 
                         <h1 className="px-2 text-sm">{location}</h1>
                     </div>
@@ -61,8 +67,46 @@ const CampDetails = () => {
                         <h1 className="px-2 text-sm">Total participant: {participantCount}</h1>
                     </div>
                     <div className="flex mt-6 justify-center">
-                        {/* <Link className="bg-[#6F42C1] py-2 px-6 rounded-lg hover:bg-slate-600 text-white" to={`/camps/${_id}`}>Join Camp</Link> */}
-                        <button className="btn bg-[#6F42C1] w-full text-white text-xl">Join Camp</button>
+                        {/* <button className="btn bg-[#6F42C1] w-full text-white text-xl">Join Camp</button> */}
+                        {/* Open the modal using document.getElementById('ID').showModal() method */}
+                        <button className="btn bg-[#6F42C1] w-full text-white text-xl" onClick={() => document.getElementById('my_modal_2').showModal()}>Join Camp</button>
+                        <dialog id="my_modal_2" className="modal">
+                            <div className="modal-box bg-[#6F42C1]">
+                                <h2 className="text-2xl text-white mb-3 text-center font-semibold">Please enter your resume link to apply for the job</h2>
+                                <hr className="mb-2" />
+                                <form onSubmit={handleJobSubmit}>
+                                    <label className="font-bold mb-2 text-white" htmlFor="">Camp Name:</label> <br />
+                                    <input type="text" className="input w-full mb-3" defaultValue={campName} readOnly />
+                                    <label className="font-bold mb-2 text-white" htmlFor="">Camp Fees:</label> <br />
+                                    <input type="text" className="input w-full mb-3" defaultValue={campFees} readOnly />
+                                    <label className="font-bold mb-2 text-white" htmlFor="">Location:</label> <br />
+                                    <input type="text" className="input w-full mb-3" defaultValue={location} readOnly />
+                                    <label className="font-bold mb-2 text-white" htmlFor="">Healthcare Professional:</label> <br />
+                                    <input type="text" className="input w-full mb-3" defaultValue={healthcareProfessional} readOnly />
+                                    <label className="font-bold mb-2 text-white" htmlFor="">Participant Name:</label> <br />
+                                    <input type="text" className="input w-full mb-3" defaultValue={user.displayName} readOnly /><br />
+                                    <label className="font-bold mb-2 text-white" htmlFor="">User Email</label> <br />
+                                    <input type="text" className="input w-full mb-3" defaultValue={user.email} readOnly /><br />
+                                    <label className="font-bold mb-2 text-white" htmlFor="">Age:</label> <br />
+                                    <input type="text" placeholder="Your age" className="input mt-3 input-bordered w-full" required />
+                                    <label className="font-bold mb-2 text-white" htmlFor="">Phone Number:</label> <br />
+                                    <input type="text" placeholder="Phone Number" className="input mt-3 input-bordered w-full" required />
+                                    <label className="font-bold mb-2 text-white" htmlFor="">Gender:</label> <br />
+                                    <select className="select select-bordered w-full mt-3">
+                                        <option disabled selected>Select your Gender</option>
+                                        <option>Male</option>
+                                        <option>Female</option>
+                                        <option>Others</option>
+                                    </select>
+                                    <label className="font-bold mb-2 text-white" htmlFor="">Emergency Contact:</label> <br />
+                                    <input type="text" placeholder="Emergency Contact" className="input mt-3 input-bordered w-full" required />
+                                    <input className="btn btn-outline btn-success w-full mt-4" type="submit" value="Submit Application" />
+                                </form>
+                            </div>
+                            <form method="dialog" className="modal-backdrop">
+                                <button>close</button>
+                            </form>
+                        </dialog>
                     </div>
                 </div>
             </div>
