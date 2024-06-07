@@ -75,12 +75,7 @@ const UpdateCamp = () => {
                 <h2 className="text-3xl text-center font-bold">Add Camp</h2>
                 <div className="divider"></div>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    {/* <div className="form-control w-full">
-                    <label className="label">
-                        <span className="label-text">Camp Name*</span>
-                    </label>
-                    <input type="text" placeholder="Camp Name" className="input input-bordered w-full" {...register("name", { required: true })} required />
-                </div> */}
+                    
                     <div className="flex items-center gap-6">
                         {/* Camp Name name */}
                         <div className="form-control w-full">
@@ -122,17 +117,16 @@ const UpdateCamp = () => {
                                 <span className="label-text">Date: </span>
                             </label>
                             <DatePicker className="p-3 border rounded-lg w-full" selected={startDate} onChange={(date) => setStartDate(date)} />
-                            {/* <TimePicker className="p-3 border rounded-lg w-full bg-white" onChange={onChange} value={value} /> */}
-                            {/* <input type="date" placeholder="Camp fees" className="input input-bordered w-full " {...register("fees")} /> */}
+                            
                         </div>
                         {/* Date and time */}
                         <div className="form-control w-full">
                             <label className="label">
                                 <span className="label-text">Time: </span>
                             </label>
-                            {/* <DatePicker className="p-3 border rounded-lg w-full" selected={startDate} onChange={(date) => setStartDate(date)} /> */}
+                            
                             <TimePicker className="p-3 border rounded-lg w-full bg-white" onChange={onChange} value={value} />
-                            {/* <input type="date" placeholder="Camp fees" className="input input-bordered w-full " {...register("fees")} /> */}
+                           
                         </div>
                     </div>
                     <div className="form-control">

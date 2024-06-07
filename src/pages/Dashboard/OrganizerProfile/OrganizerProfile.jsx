@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { Link } from "react-router-dom";
 
 const OrganizerProfile = () => {
     const axiosSecure = useAxiosSecure();
@@ -30,7 +31,7 @@ const OrganizerProfile = () => {
                         users?.phoneNumber && <p><span className="font-bold">Phone:</span> {users?.phoneNumber}</p>
                     }
                     <div className="card-actions justify-center">
-                        <button className="btn bg-[#6F42C1] text-white">Edit profile</button>
+                        <Link to="/dashboard/update-organizer-profile"><button className="btn bg-[#6F42C1] text-white">Edit profile</button></Link>
                     </div>
                 </div>
             </div>
@@ -39,3 +40,4 @@ const OrganizerProfile = () => {
 };
 
 export default OrganizerProfile;
+
