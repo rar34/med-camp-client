@@ -44,8 +44,13 @@ const ManageCamps = () => {
         });
     }
     return (
-        <div>
+        <div className="bg-[#F5F5DC] p-2 md:p-10 rounded-xl min-h-screen">
             <div className="overflow-x-auto">
+                <div className="space-y-3 mb-14 w-3/4 mx-auto">
+                    <h2 className="text-3xl text-center font-bold">Manage Camps</h2>
+                    <hr />
+                    <p className="text-center">Welcome to the Manage Camps section. Here, you can view and manage all the camps in our system. Use the table below to see detailed information about each camp, including their current status and details. You can edit, update, or delete camp information as needed to keep everything up-to-date.</p>
+                </div>
                 <table className="table">
                     {/* head */}
                     <thead className="bg-base-200">
@@ -61,7 +66,7 @@ const ManageCamps = () => {
                     </thead>
                     <tbody>
                         {
-                            camps?.map((camp, index) => <tr key={camp._id}>
+                            camps?.map((camp, index) => <tr className="hover" key={camp._id}>
                                 <td>{index + 1}</td>
                                 <td>
                                     <div className="flex items-center gap-3">

@@ -14,7 +14,7 @@ const OrganizerProfile = () => {
             return res.data;
         }
     })
-    // console.log(users)
+    console.log(users)
 
     return (
         <div>
@@ -28,7 +28,7 @@ const OrganizerProfile = () => {
                     <h2 className="card-title"><span className="font-bold">Name:</span> {users?.name}</h2>
                     <p><span className="font-bold">Email:</span> {users?.email}</p>
                     {
-                        users?.phoneNumber && <p><span className="font-bold">Phone:</span> {users?.phoneNumber}</p>
+                        users?.phone && <p><span className="font-bold">Phone:</span> {users?.phone}</p>
                     }
                     <div className="card-actions justify-center">
                         <Link to="/dashboard/update-organizer-profile"><button className="btn bg-[#6F42C1] text-white">Edit profile</button></Link>
