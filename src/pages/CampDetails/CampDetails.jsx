@@ -6,6 +6,7 @@ import { FaLocationDot, FaUserDoctor } from "react-icons/fa6";
 import { MdDateRange } from "react-icons/md";
 import { IoMdTimer } from "react-icons/io";
 import useAuth from "../../hooks/useAuth";
+import Swal from "sweetalert2";
 
 const CampDetails = () => {
     const { user } = useAuth();
@@ -22,10 +23,39 @@ const CampDetails = () => {
     })
     // console.log(singleCamp)
 
-    const { campName, image, campFees, date, time, location, healthcareProfessional, participantCount, description } = singleCamp;
+    const { _id, campName, image, campFees, date, time, location, healthcareProfessional, participantCount, description } = singleCamp;
 
-    const handleJobSubmit = () => {
-        console.log('participated')
+    const handleJobSubmit = async (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const campId = _id;
+        const participantName = user?.displayName;
+        const participantEmail = user?.email;
+        const age = form.age.value;
+        const phone = form.phone.value;
+        const gender = form.gender.value;
+        const emergencyContact = form.emergencyContact.value;
+
+        const joinCamp = {
+            campId, campName, campFees, location, participantName, participantEmail, age, phone, gender, emergencyContact, participantCount: participantCount + 1
+        }
+        // console.log(joinCamp)
+
+        const campRes = await axiosPublic.post("/joinCamp", joinCamp)
+        console.log(campRes.data)
+        if (campRes.data.modifiedCount > 0) {
+            form.reset();
+            // navigate('/dashboard/manage-camps')
+            //show success popup
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "You have successfully registered to the camp",
+                showConfirmButton: false,
+                timer: 1500
+            });
+        }
+
     }
 
     return (
@@ -38,7 +68,6 @@ const CampDetails = () => {
 
                     <h1 className="mx-3 text-lg font-semibold text-white">${campFees}</h1>
                 </div>
-
                 <div className="px-6 py-4">
                     <span className="flex items-center justify-between">
                         <p className="py-2 flex items-center gap-2 font-medium text-gray-700 dark:text-gray-400"><MdDateRange /> {date}</p>
@@ -46,22 +75,15 @@ const CampDetails = () => {
                     </span>
                     <hr className="my-4" />
                     <h1 className="text-xl font-semibold text-gray-800 dark:text-white">{campName}</h1>
-
                     <p className="py-2 text-gray-700 dark:text-gray-400">{description}</p>
-
-
                     <div className="flex items-center mt-4 text-gray-700 dark:text-gray-200">
                         <FaUserDoctor className=" text-xl" />
-
                         <h1 className="px-2 text-sm">{healthcareProfessional}</h1>
                     </div>
-
                     <div className="flex items-center mt-4 text-gray-700 dark:text-gray-200">
                         <FaLocationDot className="text-xl" />
-
                         <h1 className="px-2 text-sm">{location}</h1>
                     </div>
-
                     <div className="flex items-center mt-4 text-gray-700 dark:text-gray-200">
                         <IoPeople className="text-xl" />
                         <h1 className="px-2 text-sm">Total participant: {participantCount}</h1>
@@ -88,19 +110,19 @@ const CampDetails = () => {
                                     <label className="font-bold mb-2 text-white" htmlFor="">User Email</label> <br />
                                     <input type="text" className="input w-full mb-3" defaultValue={user.email} readOnly /><br />
                                     <label className="font-bold mb-2 text-white" htmlFor="">Age:</label> <br />
-                                    <input type="text" placeholder="Your age" className="input mt-3 input-bordered w-full" required />
+                                    <input type="text" name="age" placeholder="Your age" className="input mt-3 input-bordered w-full" required />
                                     <label className="font-bold mb-2 text-white" htmlFor="">Phone Number:</label> <br />
-                                    <input type="text" placeholder="Phone Number" className="input mt-3 input-bordered w-full" required />
+                                    <input type="text" name="phone" placeholder="Phone Number" className="input mt-3 input-bordered w-full" required />
                                     <label className="font-bold mb-2 text-white" htmlFor="">Gender:</label> <br />
-                                    <select className="select select-bordered w-full mt-3">
+                                    <select name="gender" id="gender" className="select select-bordered w-full mt-3">
                                         <option disabled selected>Select your Gender</option>
-                                        <option>Male</option>
-                                        <option>Female</option>
-                                        <option>Others</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                        <option value="others">Others</option>
                                     </select>
                                     <label className="font-bold mb-2 text-white" htmlFor="">Emergency Contact:</label> <br />
-                                    <input type="text" placeholder="Emergency Contact" className="input mt-3 input-bordered w-full" required />
-                                    <input className="btn btn-outline btn-success w-full mt-4" type="submit" value="Submit Application" />
+                                    <input name="emergencyContact" type="text" placeholder="Emergency Contact" className="input mt-3 input-bordered w-full" required />
+                                    <input className="btn btn-outline btn-info w-full mt-4" type="submit" value="Join Camp" />
                                 </form>
                             </div>
                             <form method="dialog" className="modal-backdrop">
