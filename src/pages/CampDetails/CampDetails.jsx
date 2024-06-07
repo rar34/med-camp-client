@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import { IoPeople } from "react-icons/io5";
 import { FaLocationDot, FaUserDoctor } from "react-icons/fa6";
@@ -7,11 +7,13 @@ import { MdDateRange } from "react-icons/md";
 import { IoMdTimer } from "react-icons/io";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
+import { toast } from "react-toastify";
 
 const CampDetails = () => {
     const { user } = useAuth();
     const { id } = useParams();
     const axiosPublic = useAxiosPublic();
+    const navigate = useNavigate();
     // console.log(id)
 
     const { data: singleCamp = {} } = useQuery({
@@ -41,19 +43,26 @@ const CampDetails = () => {
         }
         // console.log(joinCamp)
 
-        const campRes = await axiosPublic.post("/joinCamp", joinCamp)
-        console.log(campRes.data)
-        if (campRes.data.modifiedCount > 0) {
-            form.reset();
-            // navigate('/dashboard/manage-camps')
-            //show success popup
-            Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title: "You have successfully registered to the camp",
-                showConfirmButton: false,
-                timer: 1500
-            });
+        try {
+            const campRes = await axiosPublic.post("/joinCamp", joinCamp)
+            console.log(campRes.data)
+            if (campRes.data.modifiedCount > 0) {
+                form.reset();
+                // navigate('/dashboard/manage-camps')
+                //show success popup
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "You have successfully registered to the camp",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }
+        }
+        catch (error) {
+            console.log(error)
+            toast.error(error.response.data)
+            navigate("/")
         }
 
     }

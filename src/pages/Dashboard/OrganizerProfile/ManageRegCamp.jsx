@@ -1,7 +1,7 @@
 
 const ManageRegCamp = () => {
     return (
-        <div className="bg-[#F5F5DC] p-2 md:p-10 rounded-lg min-h-screen">
+        <div className="p-2 md:p-10 rounded-lg min-h-screen">
             <h2 className="text-3xl text-center font-bold text-[#6F42C1]">Manage Register Camp</h2>
         </div>
     );

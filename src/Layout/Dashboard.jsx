@@ -73,10 +73,10 @@ const Dashboard = () => {
                         to="/dashboard/participant-profile"><FaUser />  Participant Profile</NavLink></li>
                     <li><NavLink
                         style={({ isActive }) => { return isActive ? { borderBottomColor: "yellow", backgroundColor: 'transparent ' } : {}; }} className={'border-b-2 mb-4'}
-                        to="/manage-camp"><FaListAlt /> Registered Camps</NavLink></li>
+                        to="/dashboard/registered-camp"><FaListAlt /> Registered Camps</NavLink></li>
                     <li><NavLink
                         style={({ isActive }) => { return isActive ? { borderBottomColor: "yellow", backgroundColor: 'transparent ' } : {}; }} className={'border-b-2 mb-4'}
-                        to="/manage-reg-camp"><FaMoneyCheckAlt /> Payment History</NavLink></li>
+                        to="/dashboard/payment-history"><FaMoneyCheckAlt /> Payment History</NavLink></li>
 
                     <div className="divider"></div>
                     <li><NavLink
@@ -120,7 +120,7 @@ const Dashboard = () => {
                 </div>
             </div>
             {/* dashboard content */}
-            <div className="flex-1 p-2 md:p-8 overflow-x-auto">
+            <div className="flex-1 p-2 md:p-8 bg-[#F5F5DC] overflow-x-auto">
                 <Outlet></Outlet>
             </div>
         </div>

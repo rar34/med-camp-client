@@ -19,7 +19,7 @@ const ParticipantProfile = () => {
 
     return (
         <div>
-            <div className="flex flex-col items-center py-12 bg-[#F5F5DC] ">
+            <div className="flex flex-col items-center py-12 ">
                 <div className="avatar flex-1">
                     <div className="w-96 h-96 border-4 rounded-full">
                         <img src={users?.image} />

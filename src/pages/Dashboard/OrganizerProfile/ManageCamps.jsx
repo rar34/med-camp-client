@@ -44,7 +44,7 @@ const ManageCamps = () => {
         });
     }
     return (
-        <div className="bg-[#F5F5DC] p-2 md:p-10 rounded-lg min-h-screen">
+        <div className="p-2 md:p-10 rounded-lg min-h-screen">
             <div className="overflow-x-auto">
                 <div className="space-y-3 mb-14 w-3/4 mx-auto">
                     <h2 className="text-3xl text-[#6F42C1] text-center font-bold">Manage Camps</h2>

@@ -18,6 +18,8 @@ import ManageRegCamp from "../pages/Dashboard/OrganizerProfile/ManageRegCamp";
 import Analytics from "../pages/Dashboard/ParticipantProfile/Analytics";
 import ParticipantProfile from "../pages/Dashboard/ParticipantProfile/ParticipantProfile";
 import UpdateParticipantProfile from "../pages/Dashboard/ParticipantProfile/UpdateParticipantProfile";
+import RegisteredCamps from "../pages/Dashboard/ParticipantProfile/RegisteredCamps";
+import PaymentHistory from "../pages/Dashboard/ParticipantProfile/PaymentHistory";
 
 
 const router = createBrowserRouter([
@@ -83,11 +85,19 @@ const router = createBrowserRouter([
             },
             {
                 path: 'participant-profile',
-                element: <ParticipantProfile></ParticipantProfile>
+                element: <PrivateRoute><ParticipantProfile></ParticipantProfile></PrivateRoute>
             },
             {
                 path: 'update-participant-profile',
-                element: <UpdateParticipantProfile></UpdateParticipantProfile>
+                element: <PrivateRoute><UpdateParticipantProfile></UpdateParticipantProfile></PrivateRoute>
+            },
+            {
+                path: 'registered-camp',
+                element: <PrivateRoute><RegisteredCamps /></PrivateRoute>
+            },
+            {
+                path: 'payment-history',
+                element: <PrivateRoute><PaymentHistory /></PrivateRoute>
             }
         ]
     }

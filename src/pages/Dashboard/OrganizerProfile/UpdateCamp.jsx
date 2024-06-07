@@ -71,8 +71,8 @@ const UpdateCamp = () => {
     }
     return (
         <div>
-            <div className="bg-[#F5F5DC] p-10 rounded-xl border border-[#6F42C1] shadow-md">
-                <h2 className="text-3xl text-center font-bold">Add Camp</h2>
+            <div className="p-10 rounded-xl border border-[#6F42C1] shadow-md">
+                <h2 className="text-3xl text-[#6F42C1] text-center font-bold">Add Camp</h2>
                 <div className="divider"></div>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     
