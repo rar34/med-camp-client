@@ -4,15 +4,39 @@ import { FaCalendarPlus, FaListCheck, FaUser } from "react-icons/fa6";
 import { FaHome, FaListAlt, FaMoneyCheckAlt } from "react-icons/fa";
 import { MdAnalytics } from "react-icons/md";
 import useAdmin from "../hooks/useAdmin";
+import { toast } from "react-toastify";
+import useAxiosPublic from "../hooks/useAxiosPublic";
+import { useQuery } from "@tanstack/react-query";
 
 const Dashboard = () => {
-    const { user } = useAuth();
+    const { user, logOut } = useAuth();
     const [isAdmin] = useAdmin();
+    const axiosPublic = useAxiosPublic();
+    console.log(user)
+    const { data: users = [] } = useQuery({
+        queryKey: ['users', user?.email],
+        queryFn: async () => {
+            const res = await axiosPublic.get(`/users/${user?.email}`)
+            return res.data;
+        }
+    })
+
+    const handleLogOut = () => {
+        logOut()
+            .then(result => {
+                toast.success("log out successful")
+                console.log(result.user)
+            })
+            .catch(error => {
+                console.log(error)
+                toast.error(error.message)
+            })
+    }
     // console.log(user)
     const navOptions = <>
         <div className="avatar online mx-auto">
             <div className="w-24 rounded-full border-2 ring-offset-base-100 ring-offset-2">
-                <img src={user?.photoURL} />
+                <img src={users?.image} />
             </div>
         </div>
         <h3 className="text-3xl text-center my-2 font-bold">{user?.displayName}</h3>
@@ -31,35 +55,39 @@ const Dashboard = () => {
                     to="/dashboard/manage-camps"><FaListAlt /> Manage Camps</NavLink></li>
                 <li><NavLink
                     style={({ isActive }) => { return isActive ? { borderBottomColor: "yellow", backgroundColor: 'transparent ' } : {}; }} className={'border-b-2 mb-4 shadow-md'}
-                    to="/manage-reg-camp"><FaListCheck /> Manage Registered Camps</NavLink></li>
+                    to="/dashboard/manage-reg-camp"><FaListCheck /> Manage Registered Camps</NavLink></li>
 
                 <div className="divider"></div>
                 <li><NavLink
                     style={({ isActive }) => { return isActive ? { borderBottomColor: "yellow", backgroundColor: 'transparent ' } : {}; }} className={'border-b-2 mb-4 shadow-md'}
                     to="/"><FaHome /> Home</NavLink></li>
+                <li className=' mb-4 shadow-md'><button onClick={handleLogOut}>Logout</button></li>
             </>
                 :
                 <>
                     <li><NavLink
-                        style={({ isActive }) => { return isActive ? { borderBottomColor: "skyblue", backgroundColor: 'transparent ' } : {}; }} className={'border-b-2 mb-4'}
+                        style={({ isActive }) => { return isActive ? { borderBottomColor: "yellow", backgroundColor: 'transparent ' } : {}; }} className={'border-b-2 mb-4'}
                         to="/dashboard/analytics"><MdAnalytics /> Analytics</NavLink></li>
                     <li><NavLink
-                        style={({ isActive }) => { return isActive ? { borderBottomColor: "skyblue", backgroundColor: 'transparent ' } : {}; }} className={'border-b-2 mb-4'}
-                        to="/add-camp"><FaUser />  Participant Profile</NavLink></li>
+                        style={({ isActive }) => { return isActive ? { borderBottomColor: "yellow", backgroundColor: 'transparent ' } : {}; }} className={'border-b-2 mb-4'}
+                        to="/dashboard/participant-profile"><FaUser />  Participant Profile</NavLink></li>
                     <li><NavLink
-                        style={({ isActive }) => { return isActive ? { borderBottomColor: "skyblue", backgroundColor: 'transparent ' } : {}; }} className={'border-b-2 mb-4'}
+                        style={({ isActive }) => { return isActive ? { borderBottomColor: "yellow", backgroundColor: 'transparent ' } : {}; }} className={'border-b-2 mb-4'}
                         to="/manage-camp"><FaListAlt /> Registered Camps</NavLink></li>
                     <li><NavLink
-                        style={({ isActive }) => { return isActive ? { borderBottomColor: "skyblue", backgroundColor: 'transparent ' } : {}; }} className={'border-b-2 mb-4'}
+                        style={({ isActive }) => { return isActive ? { borderBottomColor: "yellow", backgroundColor: 'transparent ' } : {}; }} className={'border-b-2 mb-4'}
                         to="/manage-reg-camp"><FaMoneyCheckAlt /> Payment History</NavLink></li>
 
                     <div className="divider"></div>
                     <li><NavLink
-                        style={({ isActive }) => { return isActive ? { borderBottomColor: "skyblue", backgroundColor: 'transparent ' } : {}; }} className={'border-b-2 mb-4'}
+                        style={({ isActive }) => { return isActive ? { borderBottomColor: "yellow", backgroundColor: 'transparent ' } : {}; }} className={'border-b-2 mb-4'}
                         to="/"><FaHome /> Home</NavLink></li>
+                    <li className='mb-4 shadow-md'><button onClick={handleLogOut}>Logout</button></li>
                 </>
         }
     </>
+
+
 
     return (
         <div className="flex gap-6 container mx-auto">

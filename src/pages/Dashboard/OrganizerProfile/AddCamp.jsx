@@ -58,7 +58,7 @@ const AddCamp = () => {
     return (
         <div>
             <div className="bg-[#F5F5DC] p-10 rounded-xl border border-[#6F42C1] shadow-md">
-                <h2 className="text-3xl text-center font-bold">Add Camp</h2>
+                <h2 className="text-3xl text-center text-[#6F42C1] font-bold">Add Camp</h2>
                 <div className="divider"></div>
                 <form onSubmit={handleSubmit(onSubmit)}>
                    

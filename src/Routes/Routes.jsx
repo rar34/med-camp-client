@@ -14,6 +14,10 @@ import AdminRoute from "./AdminRoute";
 import ManageCamps from "../pages/Dashboard/OrganizerProfile/ManageCamps";
 import UpdateCamp from "../pages/Dashboard/OrganizerProfile/UpdateCamp";
 import UpdateOrganizerProfile from "../pages/Dashboard/OrganizerProfile/UpdateOrganizerProfile";
+import ManageRegCamp from "../pages/Dashboard/OrganizerProfile/ManageRegCamp";
+import Analytics from "../pages/Dashboard/ParticipantProfile/Analytics";
+import ParticipantProfile from "../pages/Dashboard/ParticipantProfile/ParticipantProfile";
+import UpdateParticipantProfile from "../pages/Dashboard/ParticipantProfile/UpdateParticipantProfile";
 
 
 const router = createBrowserRouter([
@@ -68,6 +72,23 @@ const router = createBrowserRouter([
                 path: 'update-camp/:campId',
                 element: <AdminRoute><UpdateCamp /></AdminRoute>
             },
+            {
+                path: 'manage-reg-camp',
+                element: <AdminRoute><ManageRegCamp /></AdminRoute>
+            },
+            // participant user related
+            {
+                path: 'analytics',
+                element: <PrivateRoute><Analytics /></PrivateRoute>
+            },
+            {
+                path: 'participant-profile',
+                element: <ParticipantProfile></ParticipantProfile>
+            },
+            {
+                path: 'update-participant-profile',
+                element: <UpdateParticipantProfile></UpdateParticipantProfile>
+            }
         ]
     }
 ]);

@@ -44,16 +44,17 @@ const ManageCamps = () => {
         });
     }
     return (
-        <div className="bg-[#F5F5DC] p-2 md:p-10 rounded-xl min-h-screen">
+        <div className="bg-[#F5F5DC] p-2 md:p-10 rounded-lg min-h-screen">
             <div className="overflow-x-auto">
                 <div className="space-y-3 mb-14 w-3/4 mx-auto">
-                    <h2 className="text-3xl text-center font-bold">Manage Camps</h2>
+                    <h2 className="text-3xl text-[#6F42C1] text-center font-bold">Manage Camps</h2>
                     <hr />
-                    <p className="text-center">Welcome to the Manage Camps section. Here, you can view and manage all the camps in our system. Use the table below to see detailed information about each camp, including their current status and details. You can edit, update, or delete camp information as needed to keep everything up-to-date.</p>
+                    <p className="text-center text-gray-600">Welcome to the Manage Camps section. Here, you can view and manage all the camps in our system. Use the table below to see detailed information about each camp, including their current status and details. You can edit, update, or delete camp information as needed to keep everything up-to-date.</p>
+                    <hr />
                 </div>
                 <table className="table">
                     {/* head */}
-                    <thead className="bg-base-200">
+                    <thead className="bg-[#6F42C1] text-white">
                         <tr>
                             <th>#</th>
                             <th>Camp Name</th>
@@ -80,7 +81,7 @@ const ManageCamps = () => {
                                 <td>{camp.time}</td>
                                 <td>{camp.location}</td>
                                 <td><Link to={`/dashboard/update-camp/${camp._id}`}><button className="text-green-600 text-xl"><FaEdit></FaEdit></button></Link></td>
-                                <td><button onClick={() => handleDeleteItem(camp)} className="text-red-600 text-xl"><FaTrashAlt></FaTrashAlt></button></td>
+                                <td><button onClick={() => handleDeleteItem(camp)} className="text-red-600 -ml-10 text-xl"><FaTrashAlt></FaTrashAlt></button></td>
                             </tr>)
                         }
 

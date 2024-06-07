@@ -1,16 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../hooks/useAuth";
-import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import { Link } from "react-router-dom";
 
-const OrganizerProfile = () => {
-    const axiosSecure = useAxiosSecure();
-    const { user } = useAuth();
+const ParticipantProfile = () => {
 
+    const axiosPublic = useAxiosPublic();
+    const { user } = useAuth();
+    console.log(user)
     const { data: users = [] } = useQuery({
         queryKey: ['users', user?.email],
         queryFn: async () => {
-            const res = await axiosSecure.get(`/users/${user?.email}`)
+            const res = await axiosPublic.get(`/users/${user?.email}`)
             return res.data;
         }
     })
@@ -39,5 +40,4 @@ const OrganizerProfile = () => {
     );
 };
 
-export default OrganizerProfile;
-
+export default ParticipantProfile;

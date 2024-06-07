@@ -2,10 +2,20 @@ import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import { toast } from "react-toastify";
 import useAdmin from "../../../hooks/useAdmin";
+import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import { useQuery } from "@tanstack/react-query";
 
 const Navbar = () => {
     const { user, logOut } = useAuth();
     const [isAdmin] = useAdmin();
+    const axiosPublic = useAxiosPublic();
+    const { data: users = [] } = useQuery({
+        queryKey: ['users', user?.email],
+        queryFn: async () => {
+            const res = await axiosPublic.get(`/users/${user?.email}`)
+            return res.data;
+        }
+    })
     const navOptions = <>
         <li><NavLink style={({ isActive }) => { return isActive ? { backgroundColor: '#F7931D' } : {}; }} to="/">Home</NavLink></li>
         <li><NavLink style={({ isActive }) => { return isActive ? { backgroundColor: '#F7931D' } : {}; }} to="/availableCamp">Available Camps</NavLink></li>
@@ -46,7 +56,7 @@ const Navbar = () => {
                             user ? <div className="dropdown dropdown-end " >
                                 <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar tooltip">
                                     <div className="w-10 border-2 border-white rounded-full ">
-                                        <img alt="Tailwind CSS Navbar component" src={user?.photoURL || "https://i.ibb.co/ZX6HMzF/pp.jpg"} />
+                                        <img alt="Tailwind CSS Navbar component" src={users.image || "https://i.ibb.co/ZX6HMzF/pp.jpg"} />
                                     </div>
 
                                 </div>
@@ -54,7 +64,7 @@ const Navbar = () => {
                                     <li><button className=" border" disabled>Name: {user?.displayName}</button></li>
 
                                     <li className="hover:bg-gray-500"><Link to={isAdmin ? '/dashboard/organizer-profile' : '/dashboard/analytics'}>Dashboard</Link></li>
-                                    <li className="hover:bg-gray-500 text-red-500"><Link to="/login"><button onClick={handleLogOut}>Logout</button></Link></li>
+                                    <li className="hover:bg-gray-500 text-red-500"><button onClick={handleLogOut}>Logout</button></li>
                                 </ul>
                             </div>
                                 :
