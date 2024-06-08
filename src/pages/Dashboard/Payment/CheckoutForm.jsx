@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { toast } from "react-toastify";
 
 
 const CheckoutForm = () => {
@@ -17,7 +18,7 @@ const CheckoutForm = () => {
     const axiosSecure = useAxiosSecure();
     // const axiosPublic = useAxiosPublic();
     const { id } = useParams();
-    const { data: regCamp = {} } = useQuery({
+    const { data: regCamp = {}, refetch } = useQuery({
         queryKey: ['regCamp', id],
         queryFn: async () => {
             const res = await axiosSecure.get(`/regCamp/${id}`)
@@ -85,6 +86,7 @@ const CheckoutForm = () => {
 
                 // now save the payment information in database
                 const payments = {
+                    email: user?.email,
                     campName: regCamp.campName,
                     fees: regCamp.campFees,
                     paymentStatus: 'Paid',
@@ -94,8 +96,12 @@ const CheckoutForm = () => {
                     transactionId: paymentIntent.id
                 }
 
-                const res = await axiosSecure.post('/payments', payments)
-                console.log(res)
+                const res = await axiosSecure.post('/payments', payments);
+                console.log(res.data)
+                refetch();
+                if(res?.data?.insertedId){
+                    toast.success('Thanks for payment')
+                }
             }
         }
 
