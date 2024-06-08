@@ -49,6 +49,24 @@ const AvailableCamps = () => {
         endDate = '';
     };
 
+    const handleSort = (criteria) => {
+        let sorted = [...filteredCamps];
+        switch (criteria) {
+            case 'mostRegistered':
+                sorted.sort((a, b) => b.participantCount - a.participantCount);
+                break;
+            case 'campFees':
+                sorted.sort((a, b) => a.campFees - b.campFees);
+                break;
+            case 'alphabetical':
+                sorted.sort((a, b) => a.campName.localeCompare(b.campName));
+                break;
+            default:
+                break;
+        }
+        setFilteredCamps(sorted);
+    };
+
 
     if (isLoading) {
         return <div className="text-center mt-10"><span className="loading loading-spinner text-primary"></span></div>
@@ -57,9 +75,9 @@ const AvailableCamps = () => {
     // console.log(camps)
 
     return (
-        <div className="pt-28 bg-[#F5F5DC] px-2 py-10">
-            <div className="text-center my-6">
-                <SearchBar onSearch={handleSearch}></SearchBar>
+        <div className="pt-14 bg-[#F5F5DC] px-2 py-10">
+            <div className="text-center mb-10">
+                <SearchBar onSearch={handleSearch} onSort={handleSort}></SearchBar>
             </div>
             <div className=" text-center mb-14">
                 <h2 className="font-bold text-2xl mb-6 md:text-5xl">Available Medical Camp</h2>
