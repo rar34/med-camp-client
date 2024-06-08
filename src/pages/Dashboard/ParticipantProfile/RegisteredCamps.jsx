@@ -1,15 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../hooks/useAuth";
-import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import { Link } from "react-router-dom";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const RegisteredCamps = () => {
     const { user } = useAuth()
-    const axiosPublic = useAxiosPublic()
+    const axiosSecure = useAxiosSecure();
     const { data: regCamps = [] } = useQuery({
         queryKey: ['regCamps', user.email],
         queryFn: async () => {
-            const res = await axiosPublic.get(`/regCamps/${user.email}`)
+            const res = await axiosSecure.get(`/regCamps/${user.email}`)
             return res.data;
         }
     })
@@ -25,9 +25,9 @@ const RegisteredCamps = () => {
                         <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
                             <div className="overflow-hidden border border-gray-200 dark:border-gray-700 md:rounded-lg">
                                 <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                                    <thead className="bg-gray-50 dark:bg-gray-800">
-                                        <tr>
-                                            <th scope="col" className="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                    <thead className="bg-[#6F42C1]">
+                                        <tr className="text-white">
+                                            <th scope="col" className="py-3.5 px-4 text-sm font-normal text-left rtl:text-right ">
                                                 <div className="flex items-center gap-x-3">
 
                                                     <button className="flex items-center gap-x-2">
@@ -36,25 +36,25 @@ const RegisteredCamps = () => {
                                                 </div>
                                             </th>
 
-                                            <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                            <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right ">
                                                 Camp Fees
                                             </th>
 
-                                            <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                            <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right ">
                                                 Status
                                             </th>
 
-                                            <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                            <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right ">
                                                 Participant Name
                                             </th>
 
-                                            <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                            <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right ">
                                                 Confirmation Status
                                             </th>
-                                            <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                            <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right ">
                                                 Cancel Button
                                             </th>
-                                            <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                            <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right ">
                                                 Feedback Button
                                             </th>
 
@@ -68,10 +68,10 @@ const RegisteredCamps = () => {
                                                         <span>{camp.campName}</span>
                                                     </div>
                                                 </td>
-                                                <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{camp.campFees}</td>
+                                                <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">${camp.campFees}</td>
                                                 <td className="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
                                                     <div className="inline-flex items-center px-3 py-1">
-                                                        <Link to={`/dashboard/payment/${camp.campFees}`}><button className="btn btn-sm bg-[#6F42C1] text-white">Pay</button></Link>
+                                                        <Link to={`/dashboard/payment/${camp._id}`}><button className="btn btn-sm bg-[#6F42C1] text-white">Pay</button></Link>
                                                     </div>
                                                 </td>
                                                 <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">

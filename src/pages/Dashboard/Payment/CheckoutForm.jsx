@@ -1,9 +1,10 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import useAxiosSecure from "../../../hooks/useAxiosSecure";
+// import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAuth from "../../../hooks/useAuth";
-// import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 
 const CheckoutForm = () => {
@@ -15,17 +16,26 @@ const CheckoutForm = () => {
     const elements = useElements();
     const axiosSecure = useAxiosSecure();
     // const axiosPublic = useAxiosPublic();
+    const { id } = useParams();
+    const { data: regCamp = {} } = useQuery({
+        queryKey: ['regCamp', id],
+        queryFn: async () => {
+            const res = await axiosSecure.get(`/regCamp/${id}`)
+            return res.data;
+        }
+    })
 
-    const { fee } = useParams()
-    const fees = parseFloat(fee)
+    const fees = regCamp.campFees;
     // console.log(fees)
 
     useEffect(() => {
-        axiosSecure.post('/create-payment-intent', { fees: fees })
-            .then(res => {
-                // console.log(res.data.clientSecret)
-                setClientSecret(res.data.clientSecret)
-            })
+        if (fees > 0) {
+            axiosSecure.post('/create-payment-intent', { fees: fees })
+                .then(res => {
+                    // console.log(res.data.clientSecret)
+                    setClientSecret(res.data.clientSecret)
+                })
+        }
     }, [axiosSecure, fees])
 
 
@@ -70,8 +80,22 @@ const CheckoutForm = () => {
         else {
             console.log('payment intent', paymentIntent)
             if (paymentIntent.status === 'succeeded') {
-                console.log('transaction id', paymentIntent.id)
+                // console.log('transaction id', paymentIntent.id)
                 setTransactionId(paymentIntent.id)
+
+                // now save the payment information in database
+                const payments = {
+                    campName: regCamp.campName,
+                    fees: regCamp.campFees,
+                    paymentStatus: 'Paid',
+                    confirmStatus: 'Pending',
+                    participantName: regCamp.participantName,
+                    paymentId: regCamp.campId,
+                    transactionId: paymentIntent.id
+                }
+
+                const res = await axiosSecure.post('/payments', payments)
+                console.log(res)
             }
         }
 
