@@ -62,7 +62,7 @@ const RegisteredCamps = () => {
                                     </thead>
                                     <tbody className="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
                                         {
-                                            regCamps?.map(camp => <tr key={camp._id}>
+                                            regCamps?.map(camp => <tr key={camp._id} >
                                                 <td className="px-4 py-4 text-sm font-medium text-gray-700 dark:text-gray-200 whitespace-nowrap">
                                                     <div className="inline-flex items-center gap-x-3">
                                                         <span>{camp.campName}</span>

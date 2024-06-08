@@ -4,8 +4,12 @@ import { Link } from "react-router-dom";
 import { FaLocationDot, FaUserDoctor } from "react-icons/fa6";
 import { MdDateRange } from "react-icons/md";
 import { IoMdTimer } from "react-icons/io";
+import SearchBar from "./SearchBar";
+import { useState } from "react";
 
 const AvailableCamps = () => {
+
+
     const axiosPublic = useAxiosPublic()
 
     const { data: camps = [], isLoading } = useQuery({
@@ -16,6 +20,36 @@ const AvailableCamps = () => {
         }
     })
 
+
+    // const [searchCamps, setSearchCamps] = useState(camps);
+    const [filteredCamps, setFilteredCamps] = useState(camps);
+
+    const handleSearch = ({ keyword, startDate, endDate }) => {
+
+        console.log(keyword, startDate, endDate)
+        let filtered = filteredCamps;
+
+        if (keyword) {
+            filtered = filtered.filter(camp =>
+                camp.campName.toLowerCase().includes(keyword.toLowerCase())
+            );
+        }
+
+        if (startDate) {
+            filtered = filtered.filter(camp => new Date(camp.date) >= new Date(startDate));
+        }
+
+        if (endDate) {
+            filtered = filtered.filter(camp => new Date(camp.date) <= new Date(endDate));
+        }
+
+        setFilteredCamps(filtered);
+        keyword = '';
+        startDate = '';
+        endDate = '';
+    };
+
+
     if (isLoading) {
         return <div className="text-center mt-10"><span className="loading loading-spinner text-primary"></span></div>
     }
@@ -24,13 +58,16 @@ const AvailableCamps = () => {
 
     return (
         <div className="pt-28 bg-[#F5F5DC] px-2 py-10">
+            <div className="text-center my-6">
+                <SearchBar onSearch={handleSearch}></SearchBar>
+            </div>
             <div className=" text-center mb-14">
                 <h2 className="font-bold text-2xl mb-6 md:text-5xl">Available Medical Camp</h2>
                 <p className="my-4 w-full md:w-1/2 text-lg text-gray-700 mx-auto">Improve your heart health at our popular medical camp. Receive expert cardiac care and personalized assessments. Prioritize your well-being with comprehensive screenings and guidance.</p>
             </div>
             <div className="grid grid-cols-1 p-3 md:grid-cols-2 lg:grid-cols-3 gap-6 container mx-auto">
                 {
-                    camps?.map(camp => <div key={camp._id} className="w-full overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
+                    filteredCamps.length > 0 ? (filteredCamps?.map(camp => <div key={camp._id} className="w-full overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
                         <img className="object-cover object-center w-full h-72" src={camp.image} alt="avatar" />
 
                         <div className="flex items-center justify-between px-6 py-3 bg-[#6F42C1]">
@@ -70,7 +107,7 @@ const AvailableCamps = () => {
                                 <Link className="bg-[#6F42C1] py-2 px-6 rounded-lg hover:bg-slate-600 text-white" to={`/camps/${camp._id}`}>See Details</Link>
                             </div>
                         </div>
-                    </div>)
+                    </div>)) : (<p className="text-red-600 text-2xl font-medium">No camps found.</p>)
                 }
 
             </div>
