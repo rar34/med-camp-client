@@ -46,9 +46,9 @@ const CampDetails = () => {
         try {
             const campRes = await axiosPublic.post("/joinCamp", joinCamp)
             console.log(campRes.data)
-            if (campRes.data.modifiedCount > 0) {
+            if (campRes.data.insertedId) {
                 form.reset();
-                // navigate('/dashboard/manage-camps')
+                navigate('/dashboard/registered-camp')
                 //show success popup
                 Swal.fire({
                     position: "top-end",

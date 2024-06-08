@@ -9,7 +9,7 @@ import { IoMdTimer } from "react-icons/io";
 const PopularCamp = () => {
     const axiosPublic = useAxiosPublic()
 
-    const { data: popularCamps = [] } = useQuery({
+    const { data: popularCamps = [], isLoading } = useQuery({
         queryKey: ['camps'],
         queryFn: async () => {
             const res = await axiosPublic.get('/camps');
@@ -23,6 +23,11 @@ const PopularCamp = () => {
         return b.participantCount - a.participantCount;
     }
     popularCamps.sort(sortByParticipantCounts)
+
+
+    if (isLoading) {
+        return <div className="text-center mt-10"><span className="loading loading-spinner text-primary"></span></div>
+    }
 
     return (
         <div className="mt-28 bg-[#F5F5DC] py-10">

@@ -1,10 +1,26 @@
+import { useQuery } from "@tanstack/react-query";
+import useAuth from "../../../hooks/useAuth";
+import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import { Link } from "react-router-dom";
 
 const RegisteredCamps = () => {
+    const { user } = useAuth()
+    const axiosPublic = useAxiosPublic()
+    const { data: regCamps = [] } = useQuery({
+        queryKey: ['regCamps', user.email],
+        queryFn: async () => {
+            const res = await axiosPublic.get(`/regCamps/${user.email}`)
+            return res.data;
+        }
+    })
+    // console.log(regCamps)
+
+
     return (
         <div>
             <section className="container min-h-screen py-6 px-4 mx-auto">
                 <div className="flex flex-col">
-                <h2 className="text-3xl text-[#6F42C1] text-center mb-8 font-bold">Registered Camps</h2>
+                    <h2 className="text-3xl text-[#6F42C1] text-center mb-8 font-bold">Registered Camps</h2>
                     <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                         <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
                             <div className="overflow-hidden border border-gray-200 dark:border-gray-700 md:rounded-lg">
@@ -45,36 +61,32 @@ const RegisteredCamps = () => {
                                         </tr>
                                     </thead>
                                     <tbody className="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
-                                        <tr>
-                                            <td className="px-4 py-4 text-sm font-medium text-gray-700 dark:text-gray-200 whitespace-nowrap">
-                                                <div className="inline-flex items-center gap-x-3">
-
-
-                                                    <span>#3066</span>
-                                                </div>
-                                            </td>
-                                            <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">Jan 6, 2022</td>
-                                            <td className="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
-                                                <div className="inline-flex items-center px-3 py-1 rounded-full gap-x-2 text-emerald-500 bg-emerald-100/60 dark:bg-gray-800">
-                                                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M10 3L4.5 8.5L2 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                                    </svg>
-
-                                                    <h2 className="text-sm font-normal">Paid</h2>
-                                                </div>
-                                            </td>
-                                            <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
-                                                <div className="flex items-center gap-x-2">
-                                                    <div>
-                                                        <h2 className="text-sm font-medium text-gray-800 dark:text-white ">Arthur Melo</h2>
+                                        {
+                                            regCamps?.map(camp => <tr key={camp._id}>
+                                                <td className="px-4 py-4 text-sm font-medium text-gray-700 dark:text-gray-200 whitespace-nowrap">
+                                                    <div className="inline-flex items-center gap-x-3">
+                                                        <span>{camp.campName}</span>
                                                     </div>
-                                                </div>
-                                            </td>
-                                            <td className="px-4 py-4 text-sm text-gray-500 whitespace-nowrap">Confirmed</td>
-                                            <td className="px-4 py-4 text-sm text-gray-500 whitespace-nowrap"><button className="border-x-2 px-1">Cancel</button></td>
-                                            <td className="px-4 py-4 text-sm text-gray-500 whitespace-nowrap"><button className="border-x-2 px-1">Feedback</button></td>
+                                                </td>
+                                                <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{camp.campFees}</td>
+                                                <td className="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
+                                                    <div className="inline-flex items-center px-3 py-1">
+                                                        <Link to={`/dashboard/payment/${camp.campFees}`}><button className="btn btn-sm bg-[#6F42C1] text-white">Pay</button></Link>
+                                                    </div>
+                                                </td>
+                                                <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
+                                                    <div className="flex items-center gap-x-2">
+                                                        <div>
+                                                            <h2 className="text-sm font-medium text-gray-800 dark:text-white ">{camp.participantName}</h2>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td className="px-4 py-4 text-sm text-gray-500 whitespace-nowrap">Pending</td>
+                                                <td className="px-4 py-4 text-sm "><button className="border-x-2 px-1 text-red-500">Cancel</button></td>
+                                                <td className="px-4 py-4 text-sm text-green-600 whitespace-nowrap"><button className="border-x-2 px-1">Feedback</button></td>
 
-                                        </tr>
+                                            </tr>)
+                                        }
                                     </tbody>
                                 </table>
                             </div>

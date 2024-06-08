@@ -8,7 +8,7 @@ import { IoMdTimer } from "react-icons/io";
 const AvailableCamps = () => {
     const axiosPublic = useAxiosPublic()
 
-    const { data: camps = [] } = useQuery({
+    const { data: camps = [], isLoading } = useQuery({
         queryKey: ['camps'],
         queryFn: async () => {
             const res = await axiosPublic.get('/camps');
@@ -16,12 +16,16 @@ const AvailableCamps = () => {
         }
     })
 
+    if (isLoading) {
+        return <div className="text-center mt-10"><span className="loading loading-spinner text-primary"></span></div>
+    }
+
     // console.log(camps)
 
     return (
-        <div className="pt-28 bg-[#F5F5DC] py-10">
+        <div className="pt-28 bg-[#F5F5DC] px-2 py-10">
             <div className=" text-center mb-14">
-                <h2 className="font-bold text-2xl mb-6 md:text-5xl">Popular Medical Camp</h2>
+                <h2 className="font-bold text-2xl mb-6 md:text-5xl">Available Medical Camp</h2>
                 <p className="my-4 w-full md:w-1/2 text-lg text-gray-700 mx-auto">Improve your heart health at our popular medical camp. Receive expert cardiac care and personalized assessments. Prioritize your well-being with comprehensive screenings and guidance.</p>
             </div>
             <div className="grid grid-cols-1 p-3 md:grid-cols-2 lg:grid-cols-3 gap-6 container mx-auto">
@@ -48,7 +52,7 @@ const AvailableCamps = () => {
                             <hr className="my-4" />
                             <h1 className="text-xl font-semibold text-gray-800 dark:text-white">{camp.campName}</h1>
 
-                            <p className="py-2 text-gray-700 dark:text-gray-400">{camp.description.slice(0,120)+'....'}</p>
+                            <p className="py-2 text-gray-700 dark:text-gray-400">{camp.description.slice(0, 120) + '....'}</p>
 
 
                             <div className="flex items-center mt-4 text-gray-700 dark:text-gray-200">

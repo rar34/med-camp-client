@@ -20,6 +20,7 @@ import ParticipantProfile from "../pages/Dashboard/ParticipantProfile/Participan
 import UpdateParticipantProfile from "../pages/Dashboard/ParticipantProfile/UpdateParticipantProfile";
 import RegisteredCamps from "../pages/Dashboard/ParticipantProfile/RegisteredCamps";
 import PaymentHistory from "../pages/Dashboard/ParticipantProfile/PaymentHistory";
+import Payment from "../pages/Dashboard/Payment/Payment";
 
 
 const router = createBrowserRouter([
@@ -98,6 +99,10 @@ const router = createBrowserRouter([
             {
                 path: 'payment-history',
                 element: <PrivateRoute><PaymentHistory /></PrivateRoute>
+            },
+            {
+                path: 'payment/:fee',
+                element: <Payment></Payment>
             }
         ]
     }
