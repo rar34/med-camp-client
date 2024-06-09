@@ -17,7 +17,7 @@ function SearchBar({ onSearch, onSort  }) {
     };
 
     return (
-        <div>
+        <div className='flex flex-col gap-2 lg:flex-row'>
             <input
                 className='input mr-2'
                 type="text"

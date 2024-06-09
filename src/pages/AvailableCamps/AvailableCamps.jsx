@@ -8,7 +8,7 @@ import SearchBar from "./SearchBar";
 import { useState } from "react";
 
 const AvailableCamps = () => {
-
+    const [value, setValue] = useState(3);
 
     const axiosPublic = useAxiosPublic()
 
@@ -76,14 +76,16 @@ const AvailableCamps = () => {
 
     return (
         <div className="pt-14 bg-[#F5F5DC] px-2 py-10">
-            <div className="text-center mb-10">
-                <SearchBar onSearch={handleSearch} onSort={handleSort}></SearchBar>
-            </div>
+
             <div className=" text-center mb-14">
                 <h2 className="font-bold text-2xl mb-6 md:text-5xl">Available Medical Camp</h2>
                 <p className="my-4 w-full md:w-1/2 text-lg text-gray-700 mx-auto">Improve your heart health at our popular medical camp. Receive expert cardiac care and personalized assessments. Prioritize your well-being with comprehensive screenings and guidance.</p>
             </div>
-            <div className="grid grid-cols-1 p-3 md:grid-cols-2 lg:grid-cols-3 gap-6 container mx-auto">
+            <div className="text-center flex flex-col md:flex-row gap-4 items-center justify-center mb-10">
+                <SearchBar onSearch={handleSearch} onSort={handleSort}></SearchBar>
+                <button onClick={()=>setValue(2)} className="btn bg-[#6F42C1] text-white">Layout</button>
+            </div>
+            <div className={`grid grid-cols-1 p-3 md:grid-cols-2 lg:grid-cols-${value} gap-6 container mx-auto`}>
                 {
                     filteredCamps.length > 0 ? (filteredCamps?.map(camp => <div key={camp._id} className="w-full overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
                         <img className="object-cover object-center w-full h-72" src={camp.image} alt="avatar" />
