@@ -1,12 +1,15 @@
 import { PieChart, Pie, Cell, Legend } from 'recharts';
+import useAuth from '../../../hooks/useAuth';
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import { useQuery } from '@tanstack/react-query';
 
 
-const data = [
-    { name: 'Group A', value: 400 },
-    { name: 'Group B', value: 300 },
-    { name: 'Group C', value: 300 },
-    { name: 'Group D', value: 200 },
-];
+// const data = [
+//     { name: 'Group A', value: 400 },
+//     { name: 'Group B', value: 300 },
+//     { name: 'Group C', value: 300 },
+//     { name: 'Group D', value: 200 },
+// ];
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
@@ -24,11 +27,26 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
 }
 
 const Analytics = () => {
+    const { user } = useAuth();
+    const axiosSecure = useAxiosSecure();
+
+    const { data : camps = [] } = useQuery({
+        queryKey: ['payment', user?.email],
+        queryFn: async () => {
+            const res = await axiosSecure.get(`/payments/${user?.email}`)
+            return res.data;
+        }
+    })
+
+    const pieChartData = camps.map(data =>{
+        return {name: data.campName, value: data.fees}
+    })
+
     return (
         <div>
             <PieChart width={400} height={400}>
                 <Pie
-                    data={data}
+                    data={pieChartData}
                     cx="50%"
                     cy="50%"
                     labelLine={false}
@@ -37,7 +55,7 @@ const Analytics = () => {
                     fill="#8884d8"
                     dataKey="value"
                 >
-                    {data.map((entry, index) => (
+                    {pieChartData.map((campName, index) => (
                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                     ))}
                 </Pie>

@@ -103,11 +103,9 @@ const CheckoutForm = () => {
                 refetch();
                 if (res.data.insertedId) {
                     Swal.fire({
-                        position: "top-end",
-                        icon: "success",
-                        title: "Your payment has been saved",
-                        showConfirmButton: false,
-                        timer: 1500
+                        title: "Payment Successful",
+                        text: paymentIntent.id,
+                        icon: "success"
                     });
                     navigate('/dashboard/payment-history')
                 }
