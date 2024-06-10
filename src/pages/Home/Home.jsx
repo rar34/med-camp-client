@@ -1,3 +1,4 @@
+import FeedbackRatings from "../FeedbackRatings/FeedbackRatings";
 import PopularCamp from "../PopularCamp/PopularCamp";
 import Banner from "./Banner";
 
@@ -6,6 +7,7 @@ const Home = () => {
         <div>
             <Banner></Banner>
             <PopularCamp></PopularCamp>
+            <FeedbackRatings></FeedbackRatings>
         </div>
     );
 };
