@@ -9,7 +9,7 @@ const RegisteredCamps = () => {
     const [searchText, setSearchText] = useState('');
     const { user } = useAuth()
     const axiosSecure = useAxiosSecure();
-    const { data: regCamps = [], refetch } = useQuery({
+    const { data: regCamps = [], refetch, isLoading } = useQuery({
         queryKey: ['regCamps', user.email],
         queryFn: async () => {
             const res = await axiosSecure.get(`/regCamps/${user.email}`)
@@ -50,6 +50,11 @@ const RegisteredCamps = () => {
     const filteredCamps = regCamps.filter(camp =>
         camp?.campName.toLowerCase().includes(searchText.toLowerCase())
     );
+
+    if(isLoading){
+        return <div className="text-center"><span className="loading loading-spinner loading-lg"></span></div>
+    }
+
 
 
 

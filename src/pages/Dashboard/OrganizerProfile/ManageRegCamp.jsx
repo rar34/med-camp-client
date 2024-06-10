@@ -1,15 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
-import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import { GiConfirmed } from "react-icons/gi";
 import { ImCross } from "react-icons/im";
 import { useState } from "react";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const ManageRegCamp = () => {
     const [searchText, setSearchText] = useState('');
     const axiosSecure = useAxiosSecure();
 
-    const { data: regCamps, refetch } = useQuery({
+    const { data: regCamps = [], refetch, isLoading } = useQuery({
         queryKey: ['regCamps'],
         queryFn: async () => {
             const res = await axiosSecure.get('/regCamps')
@@ -32,6 +32,10 @@ const ManageRegCamp = () => {
                 timer: 1500
             });
         }
+    }
+
+    if(isLoading){
+        return <div className="text-center"><span className="loading loading-spinner loading-lg"></span></div>
     }
 
     const handleCancel = (id) => {

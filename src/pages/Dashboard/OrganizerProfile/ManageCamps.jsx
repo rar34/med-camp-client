@@ -10,7 +10,7 @@ const ManageCamps = () => {
     const [searchText, setSearchText] = useState('');
     const axiosPublic = useAxiosPublic()
     const axiosSecure = useAxiosSecure()
-    const { data: camps = [], refetch } = useQuery({
+    const { data: camps = [], refetch, isLoading } = useQuery({
         queryKey: ['camps'],
         queryFn: async () => {
             const res = await axiosPublic.get('/camps');
@@ -44,6 +44,11 @@ const ManageCamps = () => {
             }
         });
     }
+    
+    if(isLoading){
+        return <div className="text-center"><span className="loading loading-spinner loading-lg"></span></div>
+    }
+
 
     const handleSearchChange = (e) => {
         const query = e.target.value;

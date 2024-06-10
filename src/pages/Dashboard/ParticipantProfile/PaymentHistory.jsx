@@ -8,7 +8,7 @@ const PaymentHistory = () => {
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
 
-    const { data: payments = [] } = useQuery({
+    const { data: payments = [], isLoading } = useQuery({
         queryKey: ['payment', user?.email],
         queryFn: async () => {
             const res = await axiosSecure.get(`/payments/${user?.email}`)
@@ -24,6 +24,10 @@ const PaymentHistory = () => {
     const filteredCamps = payments.filter(payment =>
         payment?.campName.toLowerCase().includes(searchText.toLowerCase())
     );
+
+    if(isLoading){
+        return <div className="text-center"><span className="loading loading-spinner loading-lg"></span></div>
+    }
 
 
     return (
