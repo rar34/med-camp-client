@@ -10,12 +10,13 @@ const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PK);
 
 const Payment = () => {
     const { id } = useParams();
-    console.log(id)
+    const axiosPublic = useAxiosPublic();
+    // console.log(id)
     
     const { data: regCamp = {} } = useQuery({
         queryKey: ['regCamp', id],
         queryFn: async () => {
-            const res = await useAxiosPublic.get(`/regCamp/${id}`)
+            const res = await axiosPublic.get(`/regCamp/${id}`)
             return res.data;
         }
     })

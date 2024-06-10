@@ -14,6 +14,14 @@ const PaymentHistory = () => {
         }
     })
 
+    // const { data: regCamps = [] } = useQuery({
+    //     queryKey: ['regCamps', user.email],
+    //     queryFn: async () => {
+    //         const res = await axiosSecure.get(`/regCamps/${id}`)
+    //         return res.data;
+    //     }
+    // })
+
     // console.log(payments)
 
 

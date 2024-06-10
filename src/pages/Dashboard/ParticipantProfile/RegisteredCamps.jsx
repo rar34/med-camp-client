@@ -119,9 +119,8 @@ const RegisteredCamps = () => {
                                                 </td>
                                                 <td className="px-4 py-4 text-sm text-green-600 whitespace-nowrap">
                                                     {
-                                                        camp.confirmStatus === 'Confirmed' ? <button className="border-x-2 px-1">Feedback</button> :
+                                                        camp.confirmStatus === 'Confirmed' ? <Link to={`/dashboard/feedback/${camp._id}`}><button className="btn btn-sm bg-[#6F42C1] text-white">Feedback</button></Link> :
                                                             <button disabled className="border-x-2 px-1">Feedback</button>
-
                                                     }
                                                 </td>
 

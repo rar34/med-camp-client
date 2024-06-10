@@ -21,6 +21,7 @@ import UpdateParticipantProfile from "../pages/Dashboard/ParticipantProfile/Upda
 import RegisteredCamps from "../pages/Dashboard/ParticipantProfile/RegisteredCamps";
 import PaymentHistory from "../pages/Dashboard/ParticipantProfile/PaymentHistory";
 import Payment from "../pages/Dashboard/Payment/Payment";
+import AddFeedback from "../pages/Dashboard/ParticipantProfile/AddFeedback";
 
 
 const router = createBrowserRouter([
@@ -102,7 +103,11 @@ const router = createBrowserRouter([
             },
             {
                 path: 'payment/:id',
-                element: <Payment></Payment>
+                element: <PrivateRoute><Payment></Payment></PrivateRoute>
+            },
+            {
+                path: 'feedback/:id',
+                element: <PrivateRoute><AddFeedback></AddFeedback></PrivateRoute>
             }
         ]
     }
