@@ -2,21 +2,44 @@ import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../hooks/useAuth";
 import { Link } from "react-router-dom";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 const RegisteredCamps = () => {
 
     const { user } = useAuth()
     const axiosSecure = useAxiosSecure();
-    const { data: regCamps = [] } = useQuery({
+    const { data: regCamps = [], refetch } = useQuery({
         queryKey: ['regCamps', user.email],
         queryFn: async () => {
             const res = await axiosSecure.get(`/regCamps/${user.email}`)
             return res.data;
         }
     })
-    
 
-   
+    const handleCancel = (id) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, Cancel it!"
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                const res = await axiosSecure.delete(`/regCamps/${id}`)
+                console.log(res.data)
+                if (res.data.deletedCount > 0) {
+                    Swal.fire({
+                        title: "Cancelled!",
+                        text: "Your Camp has been cancelled from registered camp.",
+                        icon: "success"
+                    });
+                    refetch();
+                }
+            }
+        });
+    }
 
 
 
@@ -76,7 +99,7 @@ const RegisteredCamps = () => {
                                                 <td className="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
                                                     <div className="inline-flex items-center px-3 py-1">
                                                         {
-                                                            <Link to={`/dashboard/payment/${camp._id}`}><button className="btn btn-sm bg-[#6F42C1] text-white">{camp.paymentStatus}</button></Link>
+                                                            camp.paymentStatus === 'Paid' ? <button className="btn btn-sm bg-[#6F42C1] text-white" disabled>{camp.paymentStatus}</button> : <Link to={`/dashboard/payment/${camp._id}`}><button className="btn btn-sm bg-[#6F42C1] text-white">{camp.paymentStatus}</button> </Link>
                                                         }
 
                                                     </div>
@@ -88,9 +111,19 @@ const RegisteredCamps = () => {
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td className="px-4 py-4 text-sm text-gray-500 whitespace-nowrap">Pending</td>
-                                                <td className="px-4 py-4 text-sm "><button className="border-x-2 px-1 text-red-500">Cancel</button></td>
-                                                <td className="px-4 py-4 text-sm text-green-600 whitespace-nowrap"><button className="border-x-2 px-1">Feedback</button></td>
+                                                <td className="px-4 py-4 text-sm text-gray-500 whitespace-nowrap">{camp.confirmStatus}</td>
+                                                <td className="px-4 py-4 text-sm ">
+                                                    {
+                                                        camp.paymentStatus === 'Paid' ? <button className="btn btn-sm bg-[#6F42C1] text-white" disabled>Cancel</button> : <button onClick={() => handleCancel(camp._id)} className="btn btn-sm bg-[#6F42C1] text-white">Cancel</button>
+                                                    }
+                                                </td>
+                                                <td className="px-4 py-4 text-sm text-green-600 whitespace-nowrap">
+                                                    {
+                                                        camp.confirmStatus === 'Confirmed' ? <button className="border-x-2 px-1">Feedback</button> :
+                                                            <button disabled className="border-x-2 px-1">Feedback</button>
+
+                                                    }
+                                                </td>
 
                                             </tr>)
                                         }
@@ -100,38 +133,6 @@ const RegisteredCamps = () => {
                         </div>
                     </div>
                 </div>
-
-                {/* <div className="flex items-center justify-between mt-6">
-                    <a href="#" className="flex items-center px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5 rtl:-scale-x-100">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
-                        </svg>
-
-                        <span>
-                            previous
-                        </span>
-                    </a>
-
-                    <div className="items-center hidden md:flex gap-x-3">
-                        <a href="#" className="px-2 py-1 text-sm text-blue-500 rounded-md dark:bg-gray-800 bg-blue-100/60">1</a>
-                        <a href="#" className="px-2 py-1 text-sm text-gray-500 rounded-md dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100">2</a>
-                        <a href="#" className="px-2 py-1 text-sm text-gray-500 rounded-md dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100">3</a>
-                        <a href="#" className="px-2 py-1 text-sm text-gray-500 rounded-md dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100">...</a>
-                        <a href="#" className="px-2 py-1 text-sm text-gray-500 rounded-md dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100">12</a>
-                        <a href="#" className="px-2 py-1 text-sm text-gray-500 rounded-md dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100">13</a>
-                        <a href="#" className="px-2 py-1 text-sm text-gray-500 rounded-md dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100">14</a>
-                    </div>
-
-                    <a href="#" className="flex items-center px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800">
-                        <span>
-                            Next
-                        </span>
-
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5 rtl:-scale-x-100">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
-                        </svg>
-                    </a>
-                </div> */}
             </section>
         </div>
     );
