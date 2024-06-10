@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const RegisteredCamps = () => {
+
     const { user } = useAuth()
     const axiosSecure = useAxiosSecure();
     const { data: regCamps = [] } = useQuery({
@@ -13,7 +14,10 @@ const RegisteredCamps = () => {
             return res.data;
         }
     })
-    // console.log(regCamps)
+    
+
+   
+
 
 
     return (
@@ -71,7 +75,10 @@ const RegisteredCamps = () => {
                                                 <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">${camp.campFees}</td>
                                                 <td className="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
                                                     <div className="inline-flex items-center px-3 py-1">
-                                                        <Link to={`/dashboard/payment/${camp._id}`}><button className="btn btn-sm bg-[#6F42C1] text-white">Pay</button></Link>
+                                                        {
+                                                            <Link to={`/dashboard/payment/${camp._id}`}><button className="btn btn-sm bg-[#6F42C1] text-white">{camp.paymentStatus}</button></Link>
+                                                        }
+
                                                     </div>
                                                 </td>
                                                 <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">

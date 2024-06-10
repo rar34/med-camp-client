@@ -10,6 +10,7 @@ const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PK);
 
 const Payment = () => {
     const { id } = useParams();
+    console.log(id)
     
     const { data: regCamp = {} } = useQuery({
         queryKey: ['regCamp', id],
@@ -18,11 +19,6 @@ const Payment = () => {
             return res.data;
         }
     })
-
-    // const fees = parseFloat(fee)
-    // console.log(fees)
-
-
 
 
     return (

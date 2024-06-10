@@ -37,9 +37,10 @@ const CampDetails = () => {
         const phone = form.phone.value;
         const gender = form.gender.value;
         const emergencyContact = form.emergencyContact.value;
+        const paymentStatus = 'Pay'
 
         const joinCamp = {
-            campId, campName, campFees, location, participantName, participantEmail, age, phone, gender, emergencyContact, participantCount: participantCount + 1
+            campId, campName, campFees, location, participantName, participantEmail, age, phone, gender, emergencyContact, participantCount: participantCount + 1, paymentStatus
         }
         // console.log(joinCamp)
 

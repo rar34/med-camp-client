@@ -1,11 +1,11 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 // import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAuth from "../../../hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 
 const CheckoutForm = () => {
@@ -17,7 +17,9 @@ const CheckoutForm = () => {
     const elements = useElements();
     const axiosSecure = useAxiosSecure();
     // const axiosPublic = useAxiosPublic();
+    const navigate = useNavigate()
     const { id } = useParams();
+    console.log(id)
     const { data: regCamp = {}, refetch } = useQuery({
         queryKey: ['regCamp', id],
         queryFn: async () => {
@@ -99,11 +101,21 @@ const CheckoutForm = () => {
                 const res = await axiosSecure.post('/payments', payments);
                 console.log(res.data)
                 refetch();
-                if(res?.data?.insertedId){
-                    toast.success('Thanks for payment')
+                if (res.data.insertedId) {
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: "Your payment has been saved",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    navigate('/dashboard/payment-history')
                 }
             }
         }
+
+        const res = await axiosSecure.patch(`/regCamps/${id}`)
+        console.log(res.data)
 
     }
 
