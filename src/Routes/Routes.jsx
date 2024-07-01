@@ -22,6 +22,8 @@ import RegisteredCamps from "../pages/Dashboard/ParticipantProfile/RegisteredCam
 import PaymentHistory from "../pages/Dashboard/ParticipantProfile/PaymentHistory";
 import Payment from "../pages/Dashboard/Payment/Payment";
 import AddFeedback from "../pages/Dashboard/ParticipantProfile/AddFeedback";
+import BloodDonor from "../pages/BloodDonor/BloodDonor";
+import Donate from "../pages/BloodDonor/Donate";
 
 
 const router = createBrowserRouter([
@@ -49,6 +51,14 @@ const router = createBrowserRouter([
             {
                 path: 'login',
                 element: <Login></Login>
+            },
+            {
+                path: 'bloodDonor',
+                element: <PrivateRoute><BloodDonor /></PrivateRoute>
+            },
+            {
+                path: 'donate',
+                element: <PrivateRoute><Donate /></PrivateRoute>
             }
         ]
     },

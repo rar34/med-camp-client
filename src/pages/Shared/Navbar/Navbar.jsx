@@ -19,6 +19,7 @@ const Navbar = () => {
     const navOptions = <>
         <li><NavLink style={({ isActive }) => { return isActive ? { backgroundColor: '#F7931D' } : {}; }} to="/">Home</NavLink></li>
         <li><NavLink style={({ isActive }) => { return isActive ? { backgroundColor: '#F7931D' } : {}; }} to="/availableCamp">Available Camps</NavLink></li>
+        <li><NavLink style={({ isActive }) => { return isActive ? { backgroundColor: '#F7931D' } : {}; }} to="/bloodDonor">Blood Donor</NavLink></li>
     </>
 
     const handleLogOut = () => {
