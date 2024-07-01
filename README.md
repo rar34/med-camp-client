@@ -1,4 +1,5 @@
 <h1>Website Name: MedCampOrganizer</h1> <br/>
+<p>A medical camp related website where a dashboard for admin and a dashboard for participant. Admin can post medical related camp and people can participated using stripe payment.</p>
 live URL: https://explore-aura.web.app <br />
 Server side: https://github.com/rar34/med-camp-server
 
