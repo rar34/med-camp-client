@@ -16,7 +16,7 @@ const Donate = () => {
         const bloodDonor = {
             donorName: data.name,
             location: data.location,
-            bloodGrour: data.bloodGroup,
+            bloodGroup: data.bloodGroup,
             phone: data.number,
             lastDonateDate: date
         }
